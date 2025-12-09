@@ -26,6 +26,13 @@ namespace Radfall
         {
             UCMenuPrincipal uc = new UCMenuPrincipal();
             ZoneJeu.Content = uc;
+            uc.butJouer.Click += ShowGame;
+        }
+
+        private void ShowGame(object sender, RoutedEventArgs e)
+        {
+            UCJeu uc = new UCJeu();
+            ZoneJeu.Content = uc;
         }
     }
 }
