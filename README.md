@@ -7,4 +7,7 @@ Ces espèces survivent dans les sous-terrains, la où le poison des radiations e
 Vous incarnez une petite créature.
 
 
-// Pour les collisions les copaing : https://jonathanwhiting.com/tutorial/collision/
+Pour les collisions les copaing : https://jonathanwhiting.com/tutorial/collision/
+Pour le ressource manager : https://stackoverflow.com/questions/39495099/how-to-quickly-load-and-display-images-with-wpf-bitmapimage
+                            https://stackoverflow.com/questions/22499407/how-to-display-a-bitmap-in-a-wpf-image
+                            https://stackoverflow.com/questions/5982625/loading-images-in-wpf-from-code
