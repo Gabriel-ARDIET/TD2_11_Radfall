@@ -17,7 +17,7 @@ namespace Radfall
 
         private List<Timer> timers;
 
-        TimeManager() {
+        public TimeManager() {
             totalTime = 0;
             time = new Stopwatch();
             time.Start();
@@ -27,43 +27,48 @@ namespace Radfall
         {
             deltaTime = time.ElapsedMilliseconds;
             totalTime += deltaTime;
+
+            // Décompte à l'envers pour éviter des problèmes
+            // Car on supprime des éléments de la liste
+            // Et tous les éléments après le RemoteAt()
+            // Vont voir leur index baisser de 1
+            for (int i = timers.Count - 1; i >= 0; i--)
+            {
+                timers[i].TimeLeft -= deltaTime;
+
+                if (timers[i].TimeLeft <= 0)
+                {
+                    timers[i].Callback();
+                    timers.RemoveAt(i);
+                }
+            }
         }
 
-        public double GetDeltaTime()
+        public double GetDeltaTime() => deltaTime;
+
+        public double GetTotalTime() => totalTime;
+
+        public void AddTimer(double duration, Action callback)
         {
-            return deltaTime;
+            timers.Add(new Timer(duration, callback));
         }
-
-        public double GetTotalTime()
-        {
-            return totalTime;
-        }
-
-        //public void AddTimer(double duration, Action<void> callback)
-        //{
-        //    timers.Add(new Timer(duration));
-        //}
-
     }
 
-    /*
-     To create a callback in C#, you need to store a function address 
-    inside a variable. This is achieved using a delegate or the new 
-    lambda semantic Func or Action.
-    
-    https://myelin.nz/notes/callbacks/cs-delegates.html
-     */
-    public struct Timer
+    internal class Timer
     {
-        double timer { get; set; }
-        double timeLeft { get; set; }
-        Action callback {  get; set; }
+        // J'ai utilisé une classe car une struct passe une copie
+        // par défaut, car c'est un type valeur, et je connais pas
+        // trop les pointeurs et ref en c# par rapport au c++
 
-        //Timer(double duration)
-        //{
-        //    timer = duration;
-        //    timeLeft = duration;
-        //    callback = () => ...
-        //}
+        public double TimeLeft { get; set; }
+        public Action Callback {  get; set; }
+
+        // You need to pass the callback function by ref
+        // So player.Do() become player.Do
+        public Timer(double duration, Action callback)
+        {
+            TimeLeft = duration;
+            Callback = () => callback();
+        }
     }
 }
