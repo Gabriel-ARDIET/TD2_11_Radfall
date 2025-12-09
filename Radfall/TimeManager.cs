@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Radfall
 {
-    internal class TimeManager
+    class TimeManager
     {
         private Stopwatch time;
 
@@ -16,6 +16,7 @@ namespace Radfall
         private double deltaTime;
 
         private List<Timer> timers;
+
         TimeManager() {
             totalTime = 0;
             time = new Stopwatch();
@@ -38,14 +39,11 @@ namespace Radfall
             return totalTime;
         }
 
-        public void AddTimer(double duration)
-        {
-            timers.Add(new Timer(duration));
-        }
+        //public void AddTimer(double duration, Action<void> callback)
+        //{
+        //    timers.Add(new Timer(duration));
+        //}
 
-        public void RemoveTimer()
-        {
-        }
     }
 
     /*
@@ -55,15 +53,17 @@ namespace Radfall
     
     https://myelin.nz/notes/callbacks/cs-delegates.html
      */
-    internal struct Timer
+    public struct Timer
     {
-        double timer;
-        double timeLeft;
+        double timer { get; set; }
+        double timeLeft { get; set; }
+        Action callback {  get; set; }
 
-        Timer(double duration)
-        {
-            timer = duration;
-            timeLeft = duration;
-        }
+        //Timer(double duration)
+        //{
+        //    timer = duration;
+        //    timeLeft = duration;
+        //    callback = () => ...
+        //}
     }
 }
