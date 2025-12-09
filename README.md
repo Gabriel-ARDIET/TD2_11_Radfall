@@ -7,3 +7,4 @@ Ces espèces survivent dans les sous-terrains, la où le poison des radiations e
 Vous incarnez une petite créature.
 
 
+// Pour les collisions les copaing : https://jonathanwhiting.com/tutorial/collision/
