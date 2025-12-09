@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radfall"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        WindowStyle = "None"
+        WindowState = "Maximized"
+        ResizeMode="NoResize"
+        Title="MainWindow" d:DesignHeight="1080" d:DesignWidth="1920" Background="#00000000">
+    <ContentControl x:Name="ZoneJeu"/>
 </Window>
