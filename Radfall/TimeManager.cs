@@ -40,7 +40,7 @@ namespace Radfall
 
         public void AddTimer(double duration)
         {
-            timers.Add(new Timer(duration));
+// timers.Add(new Timer(duration));
         }
 
         public void RemoveTimer()
