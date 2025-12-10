@@ -24,12 +24,17 @@ namespace Radfall
         {
             // On check d'abord si l'image est en collision avec le rect
             // de la caméra pour voir si on affiche ou pas l'image
-            if (
-                camera.x > obj.x + obj.width ||
-                camera.y > obj.y + obj.height ||
-                camera.x + camera.Width < obj.x ||
-                camera.y + camera.Height < obj.y
-                )
+
+            //if (camera.x + camera.Width >= obj.x &&
+            //    camera.x <= obj.x + obj.width &&
+            //    camera.y + camera.Height >= obj.y &&
+            //    camera.y <= obj.y + obj.height)
+            bool a = camera.x + camera.Width >= obj.x;
+            bool b = camera.x <= obj.x + obj.width;
+            bool c = camera.y + camera.Height >= obj.y;
+            bool d = camera.y <= obj.y + obj.height;
+
+            if (a && b && c && d)
             {
                 obj.img.Visibility = System.Windows.Visibility.Visible;
 

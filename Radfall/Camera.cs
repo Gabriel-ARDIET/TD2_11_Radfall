@@ -16,12 +16,12 @@ namespace Radfall
             Smooth
         }
 
-        public double Width { get; set; }
-        public double Height { get; set; }
+        public double Width { get; set; } = 1920;
+        public double Height { get; set; } = 1080;
 
         public CameraFollowMode CurrentFollowMode { get; set; } = CameraFollowMode.Smooth;
 
-        private const double DEFAULT_SPEED_FACTOR = 0.2;
+        private const double DEFAULT_SPEED_FACTOR = 0.1;
 
         public double SpeedFactor { get; set; } = DEFAULT_SPEED_FACTOR;
 
@@ -33,8 +33,8 @@ namespace Radfall
                 //this.y = obj.y + (obj.height - canva.Height) / 2;
 
                 // Le this n'est pas nécessaire mais c'est plus lisible
-                this.x = obj.x + (obj.width - 1920) / 2;
-                this.y = obj.y + (obj.height - 1080) / 2;
+                this.x = obj.x + (obj.width - this.Width) / 2;
+                this.y = obj.y + (obj.height - this.Height) / 2;
             }
 
             else if (CurrentFollowMode == CameraFollowMode.Smooth)

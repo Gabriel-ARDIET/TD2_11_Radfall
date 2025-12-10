@@ -17,6 +17,7 @@ namespace Radfall
     public partial class MainWindow : Window
     {
         private Game game;
+
         public MainWindow()
         {
             InitializeComponent();

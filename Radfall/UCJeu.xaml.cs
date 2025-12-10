@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -43,5 +44,11 @@ namespace Radfall
             minuterie.Tick += radfall.Jeu;
             minuterie.Start();
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.KeyDown += InputManager.KeyDown;
+            Application.Current.MainWindow.KeyUp += InputManager.KeyUp;
+        }   
     }
 }
