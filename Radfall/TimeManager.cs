@@ -9,23 +9,21 @@ namespace Radfall
 {
     class TimeManager
     {
-        private Stopwatch time;
+        private Stopwatch time = new Stopwatch();
 
-        private double totalTime;
+        private double totalTime = 0;
 
-        private double deltaTime;
+        private double deltaTime = 0;
 
-        private List<Timer> timers;
+        private List<Timer> timers = new List<Timer>();
 
         public TimeManager() {
-            totalTime = 0;
-            time = new Stopwatch();
             time.Start();
         }
 
         public void Update()
         {
-            deltaTime = time.ElapsedMilliseconds;
+            deltaTime = time.ElapsedMilliseconds / 1000.0;
             totalTime += deltaTime;
 
             // Décompte à l'envers pour éviter des problèmes
@@ -42,6 +40,7 @@ namespace Radfall
                     timers.RemoveAt(i);
                 }
             }
+            time.Restart();
         }
 
         public double GetDeltaTime() => deltaTime;
