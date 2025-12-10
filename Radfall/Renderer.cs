@@ -22,16 +22,25 @@ namespace Radfall
         // Ajouter des éléments au render target
         public void Draw(Drawable obj)
         {
-            if (camera.x < obj.x + obj.width && 
-                camera.x + camera.Width > obj.x &&
-                camera.y < obj.y + obj.height &&
-                camera.y + camera.Width > obj.y)
+            // On check d'abord si l'image est en collision avec le rect
+            // de la caméra pour voir si on affiche ou pas l'image
+            if (
+                camera.x > obj.x + obj.width ||
+                camera.y > obj.y + obj.height ||
+                camera.x + camera.Width < obj.x ||
+                camera.y + camera.Height < obj.y
+                )
             {
                 obj.img.Visibility = System.Windows.Visibility.Visible;
+
+                // Mettre l'image a la bonne position en fonction de la camera
+                // Par contre jsp pk vs community me dit de mettre Canvas au lieu de l'instance canva
+                Canvas.SetLeft(obj.img, obj.x - camera.x);
+                Canvas.SetTop(obj.img, obj.y - camera.y);
             }
             else
             {
-                obj.img.Visibility = System.Windows.Visibility.Visible;
+                obj.img.Visibility = System.Windows.Visibility.Hidden;
             }
         } 
     }
