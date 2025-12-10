@@ -16,10 +16,11 @@ namespace Radfall
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Game game;
         public MainWindow()
         {
             InitializeComponent();
-            ShowMainMenu();
+            ShowMainMenu();       
         }
 
         private void ShowMainMenu()

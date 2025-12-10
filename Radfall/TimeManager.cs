@@ -11,11 +11,12 @@ namespace Radfall
     {
         private Stopwatch time = new Stopwatch();
 
-        private double totalTime = 0;
-
-        private double deltaTime = 0;
-
         private List<Timer> timers = new List<Timer>();
+
+        public double TotalTime { get; private set; } = 0;
+
+        public double DeltaTime { get; private set; } = 0;
+
 
         public TimeManager() {
             time.Start();
@@ -23,8 +24,8 @@ namespace Radfall
 
         public void Update()
         {
-            deltaTime = time.ElapsedMilliseconds / 1000.0;
-            totalTime += deltaTime;
+            DeltaTime = time.ElapsedMilliseconds / 1000.0;
+            TotalTime += DeltaTime;
 
             // Décompte à l'envers pour éviter des problèmes
             // Car on supprime des éléments de la liste
@@ -32,7 +33,7 @@ namespace Radfall
             // Vont voir leur index baisser de 1
             for (int i = timers.Count - 1; i >= 0; i--)
             {
-                timers[i].TimeLeft -= deltaTime;
+                timers[i].TimeLeft -= DeltaTime;
 
                 if (timers[i].TimeLeft <= 0)
                 {
@@ -42,10 +43,6 @@ namespace Radfall
             }
             time.Restart();
         }
-
-        public double GetDeltaTime() => deltaTime;
-
-        public double GetTotalTime() => totalTime;
 
         public void AddTimer(double duration, Action callback)
         {

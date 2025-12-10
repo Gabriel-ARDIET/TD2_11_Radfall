@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace Radfall
@@ -12,21 +13,50 @@ namespace Radfall
     {
         private static DispatcherTimer minuterie;
 
-        private RessourceManager ressourceMng;
-
         private TimeManager timeMng = new TimeManager();
 
-        public Game() { }
+        private Renderer renderer;
+
+        Drawable sprite;
+
+        public Game(Canvas canva) { 
+            renderer = new Renderer(canva);
+
+            RessourceManager.AssetsDirectory = "../../../assets/";
+
+            sprite = new Drawable
+            {
+                x = 0,
+                y = 0,
+                width = 100,
+                height = 100,
+                img = RessourceManager.LoadImage("test.png")
+            };
+            canva.Children.Add(sprite.img);
+        }
 
         private void Update()
         {
             timeMng.Update();
-            Debug.WriteLine(timeMng.GetDeltaTime());
-            Debug.WriteLine(timeMng.GetTotalTime());
+            renderer.camera.Update(sprite);
+            Debug.WriteLine(timeMng.DeltaTime);
+            Debug.WriteLine(timeMng.TotalTime);
         }
+
+        private void Render()
+        {
+            renderer.Draw(sprite);
+        }
+
+        private void Input()
+        {
+
+        }
+
         public void Jeu(object? sender, EventArgs e)
         {   
             Update();
+            Render();
         }
     }
 }

@@ -24,10 +24,14 @@ namespace Radfall
     {
         private static DispatcherTimer minuterie;
 
-        private Game radfall = new Game();
+        private Game radfall;
         public UCJeu()
         {
             InitializeComponent();
+
+            // Initailisation ici car sinon canva n'est pas encore initialisé avant
+            radfall = new Game(canva);
+
             InitTimer();
         }
 
