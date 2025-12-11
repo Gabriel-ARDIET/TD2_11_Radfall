@@ -27,8 +27,6 @@ namespace Radfall
 
         public Player player;
 
-        private Map map;
-
         public Monster monster;
 
         public Game(Canvas canva) { 

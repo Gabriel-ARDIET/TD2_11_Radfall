@@ -39,7 +39,6 @@ namespace Radfall
                 {
                     keyToValue[e.Key] = false;
                 }
-            }
         }
 
         public static bool IsActionActive(Enum action)
