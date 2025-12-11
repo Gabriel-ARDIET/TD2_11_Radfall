@@ -41,14 +41,20 @@ namespace Radfall
             Name = name;
             Hitbox = new Rect(x, y, img.Width, img.Height);
         }
-        public void Update(double dTime)
+        public virtual void Update(double dTime) // virtual permet de rendre la méthode personnalisable pour les enfants qui peuvent donc la réécrire avec override
         {
             ApplyGravity(dTime);
             UpdatePhysic(dTime);
             UpdateHitbox();
-            //CheckCollisions();
         }
-
+        public void InitializeRenderer(Canvas canvas, int zIndex = 1)
+        {
+            if (!canvas.Children.Contains(img))
+            {
+                canvas.Children.Add(img);
+                Canvas.SetZIndex(img, zIndex);
+            }
+        }
         private void UpdateHitbox()
         {
             Hitbox = new Rect(x, y, img.Width, img.Height);

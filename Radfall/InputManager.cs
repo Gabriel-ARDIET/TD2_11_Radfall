@@ -37,7 +37,7 @@ namespace Radfall
             {
                 if (e.Key == element.Value)
                 {
-                   keyToValue[e.Key] = false;
+                    keyToValue[e.Key] = false;
                 }
             }
         }
