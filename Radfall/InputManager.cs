@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace Radfall
             {
                if (e.Key == element.Value)
                {
-                   keyToValue[e.Key] = false;
+                   keyToValue[e.Key] = true;
                }
             }
         }
@@ -36,7 +37,7 @@ namespace Radfall
             {
                 if (e.Key == element.Value)
                 {
-                   keyToValue[e.Key] = true;
+                   keyToValue[e.Key] = false;
                 }
             }
         }
