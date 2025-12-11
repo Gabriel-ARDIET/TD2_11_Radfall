@@ -28,6 +28,7 @@ namespace Radfall
         public bool IsGrounded { get; set; }
         public bool IsInvicible { get; set; }
         public bool IsSolid { get; set; }
+        public bool IsStunned { get; set; }
         public Rect Hitbox { get; set; }
 
         public Entity(double x, double y, Image img, int id, string name)
@@ -47,12 +48,12 @@ namespace Radfall
 
         private void UpdateHitbox()
         {
-            Hitbox = new Rect(x,y,img.Width, img.Height);
+            Hitbox = new Rect(x, y, img.Width, img.Height);
         }
 
         private void ApplyGravity(double dTime)
         {
-            if (!IsFlying)
+            if (!IsFlying && IsGrounded)
                 VelocityY += GravityScale * dTime;
         }
 
@@ -60,6 +61,32 @@ namespace Radfall
         {
             x += VelocityX * dTime;
             y += VelocityY * dTime;
+        }
+        public void TakeDamage(int damage, Entity attacker, double attackX, double knockback, double invicibilityTime)
+        {
+            if (IsInvicible) return;
+
+            Health -= damage;
+            Health = Math.Max(Health, 0);
+
+            double direction = Math.Sign(x - attackX);
+            VelocityX += knockback * direction;
+            VelocityY -= knockback / 2;
+
+            if (Health > 0)
+            {
+                StartInvincibility(invicibilityTime);
+            }
+            else
+            {
+                //Die();
+            }
+        }
+
+        private void StartInvincibility(double invicibilityTime)
+        {
+            IsInvicible = true;
+            Timer timer = new Timer(invicibilityTime, () => { IsInvicible = false; });
         }
     }
 }
