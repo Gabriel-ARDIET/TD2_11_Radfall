@@ -14,15 +14,18 @@ namespace Radfall
 {
     internal class Entity : Drawable
     {
+        public const double GRAVITY = 10000;
+
         public int Id { get; init; }
         public string Name { get; init; }
         public int MaxHealth { get; set; }
         public int Health { get; set; }
         public double Speed { get; set; }
-        public double GravityScale { get; set; }
         public double JumpForce { get; set; }
         public double VelocityX { get; set; }
         public double VelocityY { get; set; }
+        public double AccelerationX { get; set; }
+        public double AccelerationY {  get; set; } 
         public bool IsFlying { get; set; }
         public bool IsVisible { get; set; }
         public bool IsGrounded { get; set; }
@@ -40,8 +43,8 @@ namespace Radfall
         }
         public virtual void Update(double dTime) // virtual permet de rendre la méthode personnalisable pour les enfants qui peuvent donc la réécrire avec override
         {
-            ApplyVelocity(dTime);
             ApplyGravity(dTime);
+            UpdatePhysic(dTime);
             UpdateHitbox();
         }
         public void InitializeRenderer(Canvas canvas, int zIndex = 1)
@@ -60,14 +63,25 @@ namespace Radfall
         private void ApplyGravity(double dTime)
         {
             if (!IsFlying && !IsGrounded)
-                VelocityY += GravityScale * dTime;
+                AccelerationY += GRAVITY * dTime;
         }
 
-        private void ApplyVelocity(double dTime)
+        private void UpdatePhysic(double dTime)
         {
+            // On integre l'acceleration 
+            // De meme pour la vitesse
+            // Pour trouver la nouvelle position
+            VelocityX += AccelerationX * dTime;
+            VelocityY += AccelerationY * dTime;
             x += VelocityX * dTime;
             y += VelocityY * dTime;
+
+            // Reset l'acceleration
+            AccelerationX = 0;
+            AccelerationY = 0;
         }
+
+
         public void TakeDamage(int damage, Entity attacker, double attackX, double knockback, double invicibilityTime)
         {
             if (IsInvicible) return;

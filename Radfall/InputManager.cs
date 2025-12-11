@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,27 +18,26 @@ namespace Radfall
 
         public static void KeyDown(object sender, KeyEventArgs e)
         {
-                // Verifier les touches qui ne sont plus presser
-                // On peut pas faire un for i puis keycodeToKey[i] car enum
-                foreach (KeyValuePair<Enum, Key> element in keycodeToKey)
-                {
-                    if (e.Key == element.Value)
-                    {
-                        keyToValue[e.Key] = false;
-                    }
-                }
+            // Verifier les touches qui ne sont plus presser
+            // On peut pas faire un for i puis keycodeToKey[i] car enum
+            foreach (KeyValuePair<Enum, Key> element in keycodeToKey)
+            {
+               if (e.Key == element.Value)
+               {
+                   keyToValue[e.Key] = true;
+               }
+            }
         }
 
         public static void KeyUp(object sender, KeyEventArgs e)
         {
-                // Verifier les touches qui ne sont plus presser
-                // On peut pas faire un for i puis keycodeToKey[i] car enum
-                foreach (KeyValuePair<Enum, Key> element in keycodeToKey)
+            // Verifier les touches qui ne sont plus presser
+            // On peut pas faire un for i puis keycodeToKey[i] car enum
+            foreach (KeyValuePair<Enum, Key> element in keycodeToKey)
+            {
+                if (e.Key == element.Value)
                 {
-                    if (e.Key == element.Value)
-                    {
-                        keyToValue[e.Key] = true;
-                    }
+                   keyToValue[e.Key] = false;
                 }
         }
 
