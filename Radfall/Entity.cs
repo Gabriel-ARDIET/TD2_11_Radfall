@@ -38,14 +38,20 @@ namespace Radfall
             Name = name;
             Hitbox = new Rect(x, y, img.Width, img.Height);
         }
-        public void Update(double dTime)
+        public virtual void Update(double dTime) // virtual permet de rendre la méthode personnalisable pour les enfants qui peuvent donc la réécrire avec override
         {
             ApplyVelocity(dTime);
             ApplyGravity(dTime);
             UpdateHitbox();
-            //CheckCollisions();
         }
-
+        public void InitializeRenderer(Canvas canvas, int zIndex = 1)
+        {
+            if (!canvas.Children.Contains(img))
+            {
+                canvas.Children.Add(img);
+                Canvas.SetZIndex(img, zIndex);
+            }
+        }
         private void UpdateHitbox()
         {
             Hitbox = new Rect(x, y, img.Width, img.Height);
@@ -53,7 +59,7 @@ namespace Radfall
 
         private void ApplyGravity(double dTime)
         {
-            if (!IsFlying && IsGrounded)
+            if (!IsFlying && !IsGrounded)
                 VelocityY += GravityScale * dTime;
         }
 

@@ -23,19 +23,26 @@ namespace Radfall
 
         private Drawable fond;
 
+        private EntityManager entityManager;
+
         public Player player;
+
+        public Monster monster;
 
         public Game(Canvas canva) { 
             this.canva = canva;
+
+            entityManager = new EntityManager(canva);
 
             renderer = new Renderer(this.canva);
 
             RessourceManager.AssetsDirectory = "../../../assets/";
 
             player = new Player(100, 100, RessourceManager.LoadImage("Perso.png"));
+            entityManager.Add(player);
 
-            canva.Children.Add(player.img);
-            Canvas.SetZIndex(player.img, 1);
+            monster = new Monster(300, 300, RessourceManager.LoadImage("chauve-souris.png"),1,"chauve-souris",player,10);
+            entityManager.Add(monster);
 
             fond = new Drawable(0, 0, RessourceManager.LoadImage("hollow.jpg"));
             canva.Children.Add(fond.img);
@@ -70,15 +77,12 @@ namespace Radfall
 
             renderer.camera.Update(canva, player);
 
-            Debug.WriteLine(timeMng.DeltaTime);
-            Debug.WriteLine(timeMng.TotalTime);
-
-            player.Update(timeMng.DeltaTime);
+            entityManager.UpdateAll(timeMng.DeltaTime);
         }
 
         private void Render()
         {
-            renderer.Draw(player);
+            entityManager.RenderAll(renderer);
             renderer.Draw(fond);
 
         }
