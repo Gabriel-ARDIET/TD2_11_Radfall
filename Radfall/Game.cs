@@ -21,8 +21,9 @@ namespace Radfall
 
         private Renderer renderer;
 
-        public Drawable sprite;
         private Drawable fond;
+
+        public Player player;
 
         public Game(Canvas canva) { 
             this.canva = canva;
@@ -31,48 +32,55 @@ namespace Radfall
 
             RessourceManager.AssetsDirectory = "../../../assets/";
 
-            sprite = new Drawable(100, 100, RessourceManager.LoadImage("Perso.png"));
-            canva.Children.Add(sprite.img);
-            Canvas.SetZIndex(sprite.img, 1);
+            player = new Player(100, 100, RessourceManager.LoadImage("Perso.png"));
+
+            canva.Children.Add(player.img);
+            Canvas.SetZIndex(player.img, 1);
 
             fond = new Drawable(0, 0, RessourceManager.LoadImage("hollow.jpg"));
             canva.Children.Add(fond.img);
-            Canvas.SetZIndex(sprite.img, 3);
+            Canvas.SetZIndex(player.img, 3);
         }
 
         private void Input()
         {
             if (InputManager.left)
             {
-                sprite.x += 1000 * timeMng.DeltaTime;
+                player.VelocityX = 1000;
             }
-            if (InputManager.right)
+            else if (InputManager.right)
             {
-                sprite.x -= 1000 * timeMng.DeltaTime;
+                player.VelocityX = -1000;
             }
+            else
+                player.VelocityX = 0;
             if (InputManager.top)
             {
-                sprite.y -= 1000 * timeMng.DeltaTime;
+                player.VelocityY = -1000;
             }
-            if (InputManager.bottom)
+            else if (InputManager.bottom)
             {
-                sprite.y += 1000 * timeMng.DeltaTime;
+                player.VelocityY = 1000;
             }
+            else
+                player.VelocityY = 0;
         }
 
         private void Update()
         {
             timeMng.Update();
 
-            renderer.camera.Update(canva, sprite);
+            renderer.camera.Update(canva, player);
 
             Debug.WriteLine(timeMng.DeltaTime);
             Debug.WriteLine(timeMng.TotalTime);
+
+            player.Update(timeMng.DeltaTime);
         }
 
         private void Render()
         {
-            renderer.Draw(sprite);
+            renderer.Draw(player);
             renderer.Draw(fond);
 
         }
