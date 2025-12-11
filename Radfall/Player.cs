@@ -15,7 +15,6 @@ namespace Radfall
 
         public Player(double x, double y, Image img, int id = 0, string name = "Player") : base(x, y, img, id, name)
         {
-            GravityScale = 10;
             IsFlying = false;
             IsGrounded = false;
         }
