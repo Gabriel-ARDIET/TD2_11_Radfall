@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,48 +12,66 @@ namespace Radfall
 {
     internal class InputManager
     {
-        public static bool right { get; private set; } = false;
-        public static bool left { get; private set; } = false;
-        public static bool top { get; private set; } = false;
-        public static bool bottom { get; private set; } = false;
-        public static void KeyDown(object sender, KeyEventArgs e)
+        private Dictionary<Enum, Key> keycodeToKey = new Dictionary<Enum, Key>();
+        private Dictionary<Key, bool> keyToValue = new Dictionary<Key, bool>();
+
+        public void KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Q)
+            for (int i = 0; i < keyToValue.Count; i++)
             {
-                right = true;
-            }
-            if (e.Key == Key.D)
-            {
-                left = true;
-            }
-            if (e.Key == Key.Z)
-            {
-                top = true;
-            }
-            if (e.Key == Key.S)
-            {
-                bottom = true;
+                // Verifier les touches qui ne sont plus presser
+                // On peut pas faire un for i puis keycodeToKey[i] car enum
+                foreach (KeyValuePair<Enum, Key> element in keycodeToKey)
+                {
+                    if (e.Key == element.Value)
+                    {
+                        keyToValue[e.Key] = false;
+                    }
+                }
             }
         }
 
-        public static void KeyUp(object sender, KeyEventArgs e)
+        public void KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Q)
+            for (int i = 0; i < keyToValue.Count; i++)
             {
-                right = false;
-            }
-            if (e.Key == Key.D)
-            {
-                left = false;
-            }
-            if (e.Key == Key.Z)
-            {
-                top = false;
-            }
-            if (e.Key == Key.S)
-            {
-                bottom = false;
+                // Verifier les touches qui ne sont plus presser
+                // On peut pas faire un for i puis keycodeToKey[i] car enum
+                foreach (KeyValuePair<Enum, Key> element in keycodeToKey)
+                {
+                    if (e.Key == element.Value)
+                    {
+                        keyToValue[e.Key] = true;
+                    }
+                }
             }
         }
+
+        public bool IsActionActive(Enum action)
+        {
+            Key key = keycodeToKey[action];
+            return keyToValue[key];
+        }
+
+        public void BindKey(Enum keyCode, Key key)
+        {
+            keycodeToKey.Add(keyCode, key);
+            keyToValue.Add(key, false);
+        }
+
+        public void ChangeKey(Enum keyCode, Key newKey)
+        {
+            // On récupère l'anccienne touche important pour modifier le deuxieme dico
+            Key key = keycodeToKey[keyCode];
+
+            // Changer le premier dico
+            keycodeToKey[keyCode] = newKey;
+
+            // Pour le deuxieme dico, il faut changer la clé
+            keyToValue.Remove(key);
+            // On peut mtn recreer une pair
+            keyToValue.Add(newKey, false);
+        }
+
     }
 }
