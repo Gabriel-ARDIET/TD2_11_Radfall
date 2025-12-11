@@ -40,30 +40,28 @@ namespace Radfall
             fond = new Drawable(0, 0, RessourceManager.LoadImage("hollow.jpg"));
             canva.Children.Add(fond.img);
             Canvas.SetZIndex(player.img, 3);
+
+            InputManager.BindKey(Action.Left, Key.Q);
+            InputManager.BindKey(Action.Right, Key.D);
+        }
+
+        private enum Action
+        {
+            Left,
+            Right,
+            Jump
         }
 
         private void Input()
         {
-            if (InputManager.left)
+           if (InputManager.IsActionActive(Action.Left))
+           {
+                player.x -= 1000 * timeMng.DeltaTime;
+           }
+            if (InputManager.IsActionActive(Action.Right))
             {
-                player.VelocityX = 1000;
+                player.x += 1000 * timeMng.DeltaTime;
             }
-            else if (InputManager.right)
-            {
-                player.VelocityX = -1000;
-            }
-            else
-                player.VelocityX = 0;
-            if (InputManager.top)
-            {
-                player.VelocityY = -1000;
-            }
-            else if (InputManager.bottom)
-            {
-                player.VelocityY = 1000;
-            }
-            else
-                player.VelocityY = 0;
         }
 
         private void Update()

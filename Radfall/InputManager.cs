@@ -12,10 +12,10 @@ namespace Radfall
 {
     internal class InputManager
     {
-        private Dictionary<Enum, Key> keycodeToKey = new Dictionary<Enum, Key>();
-        private Dictionary<Key, bool> keyToValue = new Dictionary<Key, bool>();
+        private static Dictionary<Enum, Key> keycodeToKey = new Dictionary<Enum, Key>();
+        private static Dictionary<Key, bool> keyToValue = new Dictionary<Key, bool>();
 
-        public void KeyDown(object sender, KeyEventArgs e)
+        public static void KeyDown(object sender, KeyEventArgs e)
         {
             for (int i = 0; i < keyToValue.Count; i++)
             {
@@ -31,7 +31,7 @@ namespace Radfall
             }
         }
 
-        public void KeyUp(object sender, KeyEventArgs e)
+        public static void KeyUp(object sender, KeyEventArgs e)
         {
             for (int i = 0; i < keyToValue.Count; i++)
             {
@@ -47,19 +47,19 @@ namespace Radfall
             }
         }
 
-        public bool IsActionActive(Enum action)
+        public static bool IsActionActive(Enum action)
         {
             Key key = keycodeToKey[action];
             return keyToValue[key];
         }
 
-        public void BindKey(Enum keyCode, Key key)
+        public static void BindKey(Enum keyCode, Key key)
         {
             keycodeToKey.Add(keyCode, key);
             keyToValue.Add(key, false);
         }
 
-        public void ChangeKey(Enum keyCode, Key newKey)
+        public static void ChangeKey(Enum keyCode, Key newKey)
         {
             // On récupère l'anccienne touche important pour modifier le deuxieme dico
             Key key = keycodeToKey[keyCode];
