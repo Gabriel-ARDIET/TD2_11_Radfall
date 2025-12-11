@@ -25,6 +25,8 @@ namespace Radfall
 
         private EntityManager entityManager;
 
+        private Map map;
+
         public Player player;
 
         public Monster monster;
