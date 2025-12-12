@@ -36,5 +36,20 @@ namespace Radfall
 
             return img;
         }
+
+        public static BitmapImage LoadBitmap(string filename)
+        {
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.UriSource = new Uri(AssetsDirectory + filename, UriKind.Relative);
+
+            // Charger l'image en mémoire
+            // Garde l'image en mémoire pour pouvoir y accéder rapidement
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+
+            bitmapImage.EndInit();
+            
+            return bitmapImage;
+        }
     }
 } 
