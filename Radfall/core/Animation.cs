@@ -13,38 +13,24 @@ namespace Radfall.core
 
         public static string ImgNaming { get; set; } = "_";
 
-        public Image imgSource { get; set; }
-
         public BitmapImage[] Imgs {  get; set; }
 
-        public double AnimationSpeed { get; set; }
+        public uint NbImgs { get; private set; }
 
-        private bool IsActive = false;
+        public double FrameInterval { get; set; }
 
-        public Animation(Drawable sprite, string pathImg, uint nbImgs, double AnimationSpeed) {
+        public Animation(string pathImg, uint NbImgs, double FrameInterval) {
             // Setup les attributs
-            this.AnimationSpeed = AnimationSpeed;
+            this.NbImgs = NbImgs;
+            this.FrameInterval = FrameInterval;
 
-            // On récupère la ref de l'image
-            imgSource = sprite.img;
-
-            // Initialise le tableau des bitmaps
-            Imgs = new BitmapImage[nbImgs];
+            // Initialise le tableau des  bitmaps
+            Imgs = new BitmapImage[NbImgs];
 
             // Load toutes les images pour l'animation
-            for (int i = 0; i < nbImgs; i++) {
+            for (int i = 0; i < NbImgs; i++) {
                 Imgs[i] = RessourceManager.LoadBitmap(pathImg + ImgNaming + i);
             }
         }  
-        
-        public void Active() 
-        { 
-            IsActive = true; 
-        }
-
-        public void Inactive()
-        {
-            IsActive = false;
-        }
     }
 }
