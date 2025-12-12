@@ -5,53 +5,121 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace Radfall.core
 {
     // C'est pas un manager mais un controller pour chaque entity que l'on sqouhaite
     internal class AnimationController
     {
+        private Dictionary<string, Animation> animations = new Dictionary<string, Animation>();
+
+        private Image imgSource;
+
+        private double chrono;
+
+        private int currentStep;
         public Animation CurrentAnimation {  get; set; }
 
-        public List<Animation> animations {  get; set; }
-
-        public AnimationController() { }
-
-        public void SetAnimation(Animation animation)
+        public AnimationController(Image imgSource) 
         {
-            // On vérifie que l'animation existe et est unique d'abord
-            uint exist = 0;
-            for (int i = 0; i < animations.Count; i++)
-            {
-                if (animations[i] == animation)
-                    exist++;
-            }
+            this.imgSource = imgSource;
+            chrono = 0;
+            currentStep = 0;
+        }
 
-            // Afficher les erreurs
-            if (exist == 0)
+        public void SetCurrent(string animationName)
+        {
+            // On vérifie que l'animation existe
+            bool exist = false;
+            foreach (var animation in animations)
+            {
+                if (animationName == animation.Key)
+                {
+                    exist = true;
+                    break;
+                }
+            }
+            if (!exist)
             {
                 Debug.WriteLine("Erreur : L'animation n'existe pas");
             }
-            else if (exist > 1)
-            {
-                Debug.WriteLine("Erreur : Il y a plusieurs copies de cette animation");
-            }
 
-            // Mettre toutes les animations en inactive sauf celle qu'on veut
-            else
+            // Mettre l'animation voulue
+            CurrentAnimation = animations[animationName];
+        }
+
+        public void Add(string animationName, string pathImg, uint nbFrame, double animationSpeed)
+        {
+            // Check si l'anim existe déja ou pas
+            if (animations.ContainsKey(animationName))
             {
-                for (int i = 0; i < animations.Count; i++)
+                    Debug.WriteLine("Erreur : l'animation existe déja");
+            }
+            else 
+            {
+                Animation animation = new Animation(pathImg, nbFrame, animationSpeed);
+                animations.Add(animationName, animation);
+            }
+        }
+
+        public void Update()
+        {
+            if (CurrentAnimation != null)
+            {
+                chrono += TimeManager.DeltaTime;
+                if (chrono >= CurrentAnimation.FrameInterval)
                 {
-                    if (animations[i] == animation)
+                    chrono = 0;
+                    currentStep++;
+
+                    if (currentStep == CurrentAnimation.NbImgs)
                     {
-                        animations[i].Active();
+                        currentStep = 0;
                     }
-                    else
-                    {
-                        animations[i].Inactive();
-                    }
+                    imgSource.Source = CurrentAnimation.Imgs[currentStep];
                 }
             }
         }
     }
+
+    /////// Exemple utilisation ////////
+    /*
+     
+    class Player : Drawable
+    {
+        AnimationController Animation { get; set; }
+
+        public Player()
+        {
+            Animation = new AnimationController(this.img); // Car Hérite de Drawable
+        }
+
+        public void Update()
+        {
+            animation.Update();
+        }
+
+        public void MoveLeft()
+        {
+            animation.SetCurrent("moveLeft");
+        }
+    }
+    
+    player.Animation.Add(
+                         animationName : "moveLeft",
+                         pathImg : "animation/moveLeft",
+                         nbFrame : 4,
+                         animationSpeed : 0.5
+    );
+
+    player.Animation.Add(
+                         animationName : "moveRight",
+                         pathImg : "animation/moveRight",
+                         nbFrame : 4,
+                         animationSpeed : 0.5
+    );
+
+    */
 }
