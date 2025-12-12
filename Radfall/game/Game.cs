@@ -17,8 +17,6 @@ namespace Radfall
 
         private Canvas canva;
 
-        public TimeManager timeMng = new TimeManager();
-
         private Renderer renderer;
 
         private Drawable fond;
@@ -67,21 +65,21 @@ namespace Radfall
         {
            if (InputManager.IsActionActive(Action.Left))
            {
-                player.x -= 1000 * timeMng.DeltaTime;
+                player.x -= 1000 * TimeManager.DeltaTime;
            }
             if (InputManager.IsActionActive(Action.Right))
             {
-                player.x += 1000 * timeMng.DeltaTime;
+                player.x += 1000 * TimeManager.DeltaTime;
             }
         }
 
         private void Update()
         {
-            timeMng.Update();
+            TimeManager.Update();
 
             renderer.camera.Update(canva, player);
 
-            entityManager.UpdateAll(timeMng.DeltaTime);
+            entityManager.UpdateAll(TimeManager.DeltaTime);
         }
 
         private void Render()
