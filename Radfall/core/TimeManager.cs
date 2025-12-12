@@ -9,20 +9,20 @@ namespace Radfall
 {
     class TimeManager
     {
-        private Stopwatch time = new Stopwatch();
+        private static Stopwatch time = new Stopwatch();
 
-        private List<Timer> timers = new List<Timer>();
+        private static List<Timer> timers = new List<Timer>();
 
-        public double TotalTime { get; private set; } = 0;
+        public static double TotalTime { get; private set; } = 0;
 
-        public double DeltaTime { get; private set; } = 0;
+        public static double DeltaTime { get; private set; } = 0;
 
 
         public TimeManager() {
             time.Start();
         }
 
-        public void Update()
+        public static void Update()
         {
             DeltaTime = time.ElapsedMilliseconds / 1000.0;
             TotalTime += DeltaTime;
@@ -44,7 +44,7 @@ namespace Radfall
             time.Restart();
         }
 
-        public void AddTimer(double duration, Action callback)
+        public static void AddTimer(double duration, Action callback)
         {
             timers.Add(new Timer(duration, callback));
         }
@@ -57,7 +57,7 @@ namespace Radfall
         // trop les pointeurs et ref en c# par rapport au c++
 
         public double TimeLeft { get; set; }
-        public Action Callback {  get; set; }
+        public Action Callback { get; set; }
 
         // You need to pass the callback function by ref
         // So player.Do() become player.Do
