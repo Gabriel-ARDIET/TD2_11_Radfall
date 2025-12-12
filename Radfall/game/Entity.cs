@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Media3D;
 using System.Xml.Linq;
 using System.Windows;
+using Radfall.core;
 
 namespace Radfall
 {
@@ -33,6 +34,7 @@ namespace Radfall
         public bool IsSolid { get; set; }
         public bool IsStunned { get; set; }
         public Rect Hitbox { get; set; }
+        public AnimationController Animation {  get; set; }
 
         public Entity(double x, double y, Image img, int id, string name)
         : base(x, y, img)
@@ -40,12 +42,14 @@ namespace Radfall
             Id = id;
             Name = name;
             Hitbox = new Rect(x, y, img.Width, img.Height);
+            Animation = new AnimationController(img);
         }
         public virtual void Update(double dTime) // virtual permet de rendre la méthode personnalisable pour les enfants qui peuvent donc la réécrire avec override
         {
             ApplyGravity(dTime);
             UpdatePhysic(dTime);
             UpdateHitbox();
+            Animation.Update();
         }
         public void InitializeRenderer(Canvas canvas, int zIndex = 1)
         {
