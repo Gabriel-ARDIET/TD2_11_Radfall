@@ -31,32 +31,6 @@ namespace Radfall
 
         public Monster monster;
 
-        public Game(Canvas canva) { 
-            this.canva = canva;
-
-            entityManager = new EntityManager(canva);
-
-            renderer = new Renderer(this.canva);
-
-            RessourceManager.AssetsDirectory = "../../../assets/";
-
-            player = new Player(100, 100, RessourceManager.LoadImage("Perso.png"));
-            entityManager.Add(player);
-
-            monster = new Monster(300, 300, RessourceManager.LoadImage("chauve-souris.png"),1,"chauve-souris",player,10);
-            entityManager.Add(monster);
-
-            fond = new Drawable(0, 0, RessourceManager.LoadImage("hollow.jpg"));
-            canva.Children.Add(fond.img);
-            Canvas.SetZIndex(player.img, 3);
-
-            map = new Map();
-            map.Init(canva);
-
-            InputManager.BindKey(Action.Left, Key.Q);
-            InputManager.BindKey(Action.Right, Key.D);
-        }
-
         private enum Action
         {
             Left,
@@ -64,7 +38,32 @@ namespace Radfall
             Jump
         }
 
-        private void Input()
+        public Game(Canvas canva) { 
+            // Setup le canva
+            this.canva = canva;
+
+            // Créer les instances nécessaires
+            entityManager = new EntityManager(canva);
+
+            renderer = new Renderer(this.canva);
+
+            RessourceManager.AssetsDirectory = "../../../assets/";
+
+            player = new Player(500, 2000, RessourceManager.LoadImage("Perso.png"));
+            entityManager.Add(player);
+
+            monster = new Monster(300, 300, RessourceManager.LoadImage("chauve-souris.png"),1,"chauve-souris",player,10);
+            entityManager.Add(monster);
+
+            map = new Map();
+            map.Init(canva);
+
+            // Setup les Input
+            InputManager.BindKey(Action.Left, Key.Q);
+            InputManager.BindKey(Action.Right, Key.D);
+        }
+
+        private void HandleInput()
         {
            if (InputManager.IsActionActive(Action.Left))
            {
@@ -88,12 +87,12 @@ namespace Radfall
         private void Render()
         {
             entityManager.RenderAll(renderer);
-            renderer.Draw(fond);
             map.Draw(renderer);
         }
+
         public void Jeu(object? sender, EventArgs e)
         {   
-            Input();
+            HandleInput();
             Update();
             Render();
         }
