@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace Radfall.map
 {
+    /// <summary>
+    /// Class pour stocker les collisions dans un fichier a part
+    /// </summary>
     class MapCollider
     {
 
-        public static bool[,] colliderMap_1 = new bool[,]
+        // Je veux un tableau de tableau 2d pas un tableau 3d
+        public static bool[][,] MapColliders = new bool[][,]
+{
+new bool[,]
 {
   {false, false, false, false, false, false, false, false, false, false},
   {false, false, false, true, true, true, true, true, true, true},
@@ -21,9 +27,9 @@ namespace Radfall.map
   {false, false, true, false, false, false, false, false, false, false},
   {false, false, true, false, false, false, false, false, false, false},
   {false, false, true, false, false, false, false, false, false, false}
-};
-        public static bool[,] colliderMap_2 = new bool[,]
-        {
+},
+new bool[,]
+{
   {false, false, false, false, false, false, false, false, false, false},
   {true, true, true, true, true, true, true, true, true, true},
   {false, false, false, false, false, false, false, false, false, false},
@@ -34,9 +40,9 @@ namespace Radfall.map
   {false, false, false, false, false, false, false, false, false, false},
   {false, false, false, false, false, false, false, false, false, false},
   {false, false, false, false, false, false, false, false, false, false}
-        };
-        public static bool[,] colliderMap_3 = new bool[,]
-        {
+},
+new bool[,]
+{
   {false, false, false, false, false, false, false, false, false, false},
   {true, false, false, false, false, false, false, false, false, false},
   {true, false, false, false, false, false, false, false, false, false},
@@ -47,9 +53,9 @@ namespace Radfall.map
   {true, false, false, false, false, false, false, false, false, false},
   {true, false, false, false, false, false, false, false, false, false},
   {true, false, false, false, false, false, false, false, false, false}
-        };
-        public static bool[,] colliderMap_4 = new bool[,]
-        {
+},
+new bool[,]
+{
   {false, false, true, false, false, false, false, false, false, false},
   {false, false, true, false, false, false, false, false, false, false},
   {false, false, true, false, false, false, false, false, false, false},
@@ -60,9 +66,9 @@ namespace Radfall.map
   {false, false, false, true, false, false, false, false, false, false},
   {false, false, false, true, false, false, false, false, false, false},
   {false, false, false, true, true, true, true, true, true, false}
-        };
-        public static bool[,] colliderMap_5 = new bool[,]
-        {
+},
+new bool[,]
+{
   {false, false, false, false, false, false, false, false, false, false},
   {false, false, false, false, false, false, false, false, false, false},
   {false, false, false, false, false, false, false, false, false, false},
@@ -73,9 +79,9 @@ namespace Radfall.map
   {false, false, false, false, false, false, false, false, false, false},
   {false, false, false, false, false, false, false, false, false, false},
   {false, true, true, true, true, true, true, true, true, true}
-        };
-        public static bool[,] colliderMap_6 = new bool[,]
-        {
+},
+new bool[,]
+{
   {true, false, false, false, false, false, false, false, false, false},
   {true, false, false, false, false, false, false, false, false, false},
   {true, false, false, false, false, false, false, false, false, false},
@@ -86,9 +92,9 @@ namespace Radfall.map
   {false, false, false, false, false, false, false, false, false, false},
   {false, false, false, false, false, false, false, false, false, false},
   {true, true, true, true, true, true, true, true, true, true}
-        };
-        public static bool[,] colliderMap_7 = new bool[,]
-        {
+},
+new bool[,]
+{
   {false, false, false, false, false, false, false, true, true, false},
   {false, false, false, false, false, false, false, true, false, false},
   {false, false, false, false, false, false, false, true, false, false},
@@ -99,9 +105,9 @@ namespace Radfall.map
   {false, false, true, true, true, true, true, true, true, true},
   {false, false, false, false, false, false, false, false, false, false},
   {false, false, false, false, false, false, false, false, false, false}
-        };
-        public static bool[,] colliderMap_8 = new bool[,]
-        {
+},
+new bool[,]
+{
   {false, false, false, false, false, false, false, false, false, false},
   {false, false, false, false, false, false, false, false, false, false},
   {false, true, true, false, false, false, false, false, false, false},
@@ -112,9 +118,9 @@ namespace Radfall.map
   {true, true, true, true, true, true, true, true, true, true},
   {false, false, false, false, false, false, false, false, false, false},
   {false, false, false, false, false, false, false, false, false, false}
-        };
-        public static bool[,] colliderMap_9 = new bool[,]
-        {
+},
+new bool[,]
+{
   {true, false, false, false, false, false, false, false, false, false},
   {true, false, false, false, false, false, false, false, false, false},
   {true, false, false, false, false, false, false, false, false, false},
@@ -125,6 +131,8 @@ namespace Radfall.map
   {true, true, true, true, true, true, true, true, true, true},
   {false, false, false, false, false, false, false, false, false, false},
   {false, false, false, false, false, false, false, false, false, false}
-        };
+}
+};
+
     }
 }
