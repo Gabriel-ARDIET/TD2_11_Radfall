@@ -43,7 +43,7 @@ namespace Radfall
                     tiles[i, j] = new Tile(i * IMG_SIZE, 
                                            j * IMG_SIZE, 
                                            RessourceManager.LoadImage("Radfall_map/Map_" + GetIndice(i,j) + ".png"),
-                                           MapCollider.colliderMap_8);
+                                           MapCollider.MapColliders[GetIndice(i, j) - 1]);
                     
                     // Ajoute au canva en mettant le z-index
                     canva.Children.Add(tiles[i, j].img);
