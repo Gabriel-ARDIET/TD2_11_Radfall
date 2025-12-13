@@ -11,12 +11,10 @@ namespace Radfall
 {
     internal class Tile : Drawable
     {
-        public bool[,] collider { get; set; } = new bool[10,10];
-
-        public Tile(double x, double y, Image img, bool[,] collider)
+        public Tile(double x, double y, Image img)
         : base(x, y, img)
         {
-            this.collider = collider;
+               
         }
     }
 }
