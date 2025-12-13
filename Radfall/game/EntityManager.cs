@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Radfall.map;
+using System;
 using System.Collections.Generic;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -44,10 +46,45 @@ namespace Radfall
                 renderer.Draw(entity);
             }
         }
+
         private void CheckCollisions()
         {
             for (int i = 0; i < entities.Count; i++)
             {
+                // On distingue les 2 axes pour pouvoir gérer les collisions facilement
+
+                // Pour chaque axe on :
+                // Verifie si à l'instant d'après y'a collision
+                // Si Collision on ajoute une force
+
+                // En x
+                entities[i].x += entities[i].VelocityX * TimeManager.DeltaTime;
+                entities[i].VelocityX += entities[i].AccelerationX * TimeManager.DeltaTime;
+                entities[i].AccelerationX = 0;
+
+                if (entities[i].CollideWithMap())
+                {
+                    entities[i].x = entities[i].oldPosX;
+                    entities[i].VelocityX = 0;
+                }
+
+                entities[i].oldPosX = entities[i].x;
+
+
+                // En y
+                entities[i].y += entities[i].VelocityY * TimeManager.DeltaTime;
+                entities[i].VelocityY += entities[i].AccelerationY * TimeManager.DeltaTime;
+                entities[i].AccelerationY = 0;
+
+                if (entities[i].CollideWithMap())
+                {
+                    entities[i].y = entities[i].oldPosY;
+                    entities[i].VelocityY = 0;
+                }
+
+                entities[i].oldPosY = entities[i].y;
+
+                // Collision between entity
                 for (int j = i + 1; j < entities.Count; j++)
                 {
                     var e1 = entities[i];
