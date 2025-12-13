@@ -15,7 +15,8 @@ namespace Radfall
         private const uint HEIGHT_SIZE = 3;
         private const uint WIDTH_SIZE = 3;
 
-        private const double IMG_SIZE = 1000;
+        public const double IMG_SIZE = 1000;
+        public const int COLLISION_TILE_SIZE = 100;
 
         private const int Z_INDEX = 1;
 
@@ -42,8 +43,7 @@ namespace Radfall
                     // Initialisation de chaque tile
                     tiles[i, j] = new Tile(i * IMG_SIZE, 
                                            j * IMG_SIZE, 
-                                           RessourceManager.LoadImage("Radfall_map/Map_" + GetIndice(i,j) + ".png"),
-                                           MapCollider.MapColliders[GetIndice(i, j) - 1]);
+                                           RessourceManager.LoadImage("Radfall_map/Map_" + GetIndice(i,j) + ".png"));
                     
                     // Ajoute au canva en mettant le z-index
                     canva.Children.Add(tiles[i, j].img);
