@@ -10,12 +10,13 @@ using System.Windows.Media.Media3D;
 using System.Xml.Linq;
 using System.Windows;
 using Radfall.core;
+using Radfall.map;
 
 namespace Radfall
 {
     internal class Entity : Drawable
     {
-        public const double GRAVITY = 10000;
+        public const double GRAVITY = 30000;
 
         public int Id { get; init; }
         public string Name { get; init; }
@@ -27,6 +28,8 @@ namespace Radfall
         public double VelocityY { get; set; }
         public double AccelerationX { get; set; }
         public double AccelerationY {  get; set; } 
+        public double oldPosX { get; set; }
+        public double oldPosY { get; set; }
         public bool IsFlying { get; set; }
         public bool IsVisible { get; set; }
         public bool IsGrounded { get; set; }
@@ -43,11 +46,13 @@ namespace Radfall
             Name = name;
             Hitbox = new Rect(x, y, img.Width, img.Height);
             Animation = new AnimationController(img);
+            oldPosX = x;
+            oldPosY = y;
         }
         public virtual void Update(double dTime) // virtual permet de rendre la méthode personnalisable pour les enfants qui peuvent donc la réécrire avec override
         {
             ApplyGravity(dTime);
-            UpdatePhysic(dTime);
+            //UpdatePhysic(dTime);
             UpdateHitbox();
             Animation.Update();
         }
@@ -66,12 +71,17 @@ namespace Radfall
 
         private void ApplyGravity(double dTime)
         {
-            if (!IsFlying && !IsGrounded)
+            if (!IsFlying)
+            {
+                VelocityY += 50;
                 AccelerationY += GRAVITY * dTime;
+            }
         }
 
         private void UpdatePhysic(double dTime)
         {
+            oldPosX = x;
+            oldPosY = y;
             // On integre l'acceleration 
             // De meme pour la vitesse
             // Pour trouver la nouvelle position
@@ -85,6 +95,37 @@ namespace Radfall
             AccelerationY = 0;
         }
 
+        public bool CollideWithMap()
+        {
+            bool collide = false;
+
+            // On transforme la position en de l'entity en position tile
+            int tileX = (int)x / Map.COLLISION_TILE_SIZE;
+            int tileY = (int)y / Map.COLLISION_TILE_SIZE;
+            // Pareil pour la largeur et hauteur
+            int tileXW = (int)(x + width) / Map.COLLISION_TILE_SIZE;
+            int tileYH = (int)(y + height) / Map.COLLISION_TILE_SIZE;
+
+            // On check pour tout les tiles à l'intérieur de cette zone si collision
+            for (int j = tileY; j <= tileYH; j++)
+            {
+                for (int i = tileX; i <= tileXW; i++)
+                {
+                    // Verif 
+                    if (j >= MapCollider.MapColliders.GetLength(0) || i >= MapCollider.MapColliders.GetLength(1))
+                        { continue; }
+                    if (MapCollider.MapColliders[j, i] > 0)
+                    {
+                        if (MapCollider.MapColliders[j, i] == 2)
+                            IsGrounded = true;
+                        collide = true;
+                    }
+                }
+            }
+            if (!collide)
+                IsGrounded = false;
+            return collide;
+        }
 
         public void TakeDamage(int damage, Entity attacker, double attackX, double knockback, double invicibilityTime)
         {
