@@ -47,7 +47,7 @@ namespace Radfall
 
             RessourceManager.AssetsDirectory = "../../../assets/";
 
-            player = new Player(500, 2000, RessourceManager.LoadImage("Perso.png"));
+            player = new Player(1000, 1500, RessourceManager.LoadImage("Perso.png"));
             entityManager.Add(player);
 
             monster = new Monster(300, 300, RessourceManager.LoadImage("chauve-souris.png"),1,"chauve-souris",player,10);
@@ -59,17 +59,22 @@ namespace Radfall
             // Setup les Input
             InputManager.BindKey(Action.Left, Key.Q);
             InputManager.BindKey(Action.Right, Key.D);
+            InputManager.BindKey(Action.Jump, Key.Space);
         }
 
         private void HandleInput()
         {
-           if (InputManager.IsActionActive(Action.Left))
-           {
-                player.x -= 1000 * TimeManager.DeltaTime;
-           }
+            if (InputManager.IsActionActive(Action.Left))
+            {
+                player.MoveLeft();
+            }
             if (InputManager.IsActionActive(Action.Right))
             {
-                player.x += 1000 * TimeManager.DeltaTime;
+                player.MoveRight();
+            }
+            if (InputManager.IsActionActive(Action.Jump))
+            {
+                player.Jump();
             }
         }
 
