@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,20 +19,29 @@ namespace Radfall
             IsFlying = false;
             IsGrounded = false;
         }
-        public void Move(bool left)
+
+        public void MoveLeft()
         {
             if (!IsStunned)
             {
-                if (left)
-                    VelocityX = 1000;
-                else
-                    VelocityX = -1000;
+                x -= 500 * TimeManager.DeltaTime;
             }
         }
+
+        public void MoveRight()
+        {
+            if (!IsStunned)
+            {
+                x += 500 * TimeManager.DeltaTime;
+            }
+        }
+
         public void Jump()
         {
             if (IsGrounded)
-                VelocityY = -1000;
+            {
+                VelocityY = -1400;
+            }
         }
     }
 }
