@@ -12,127 +12,39 @@ namespace Radfall.map
     class MapCollider
     {
 
-        // Je veux un tableau de tableau 2d pas un tableau 3d
-        public static bool[][,] MapColliders = new bool[][,]
-{
-new bool[,]
-{
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, true, true, true, true, true, true, true},
-  {false, false, true, true, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, false}
-},
-new bool[,]
-{
-  {false, false, false, false, false, false, false, false, false, false},
-  {true, true, true, true, true, true, true, true, true, true},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false}
-},
-new bool[,]
-{
-  {false, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false}
-},
-new bool[,]
-{
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, true, false, false, false, false, false, false},
-  {false, false, false, true, false, false, false, false, false, false},
-  {false, false, false, true, false, false, false, false, false, false},
-  {false, false, false, true, false, false, false, false, false, false},
-  {false, false, false, true, false, false, false, false, false, false},
-  {false, false, false, true, true, true, true, true, true, false}
-},
-new bool[,]
-{
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, true, true, true, true, true, true, true, true, true}
-},
-new bool[,]
-{
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, true, true, true, true, true, true, true, true, true},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {true, true, true, true, true, true, true, true, true, true}
-},
-new bool[,]
-{
-  {false, false, false, false, false, false, false, true, true, false},
-  {false, false, false, false, false, false, false, true, false, false},
-  {false, false, false, false, false, false, false, true, false, false},
-  {false, false, true, true, true, true, true, true, false, false},
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, false},
-  {false, false, true, false, false, false, false, false, false, true},
-  {false, false, true, true, true, true, true, true, true, true},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false}
-},
-new bool[,]
-{
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, true, true, false, false, false, false, false, false, false},
-  {true, true, true, true, true, true, true, true, true, true},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, true},
-  {true, true, true, true, true, true, true, true, true, true},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false}
-},
-new bool[,]
-{
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, false, false, false, false, false, false, false, false, false},
-  {true, true, true, true, true, true, true, true, true, true},
-  {false, false, false, false, false, false, false, false, false, true},
-  {false, false, false, false, false, false, false, false, false, true},
-  {false, false, false, false, false, false, false, false, false, true},
-  {true, true, true, true, true, true, true, true, true, true},
-  {false, false, false, false, false, false, false, false, false, false},
-  {false, false, false, false, false, false, false, false, false, false}
-}
-};
+        public static int[,] MapColliders = new int[,]
+ {
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+  {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+  {0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+  {0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+  {0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+ };
 
     }
 }
