@@ -16,25 +16,33 @@ namespace Radfall
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Game game;
+        private UCMenuPrincipal ucMenu;
+
+        private UCJeu ucJeu;
+
+        private Game radfall;
 
         public MainWindow()
         {
             InitializeComponent();
-            ShowMainMenu();       
+
+            ucMenu = new UCMenuPrincipal();
+            ucJeu = new UCJeu();
+            radfall = new Game(ucJeu.canva);
+
+            ShowMainMenu();   
         }
 
         private void ShowMainMenu()
-        {
-            UCMenuPrincipal uc = new UCMenuPrincipal();
-            ZoneJeu.Content = uc;
-            uc.butJouer.Click += ShowGame;
+        { 
+            ZoneJeu.Content = ucMenu;
+            ucMenu.butJouer.Click += ShowGame;
         }
 
         private void ShowGame(object sender, RoutedEventArgs e)
-        {
-            UCJeu uc = new UCJeu();
-            ZoneJeu.Content = uc;
+        {  
+            ZoneJeu.Content = ucJeu;
+            ucJeu.GameLoop(radfall);
         }
     }
 }

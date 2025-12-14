@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace Radfall
 {
-    internal class Game
+    public class Game
     {
         private static DispatcherTimer minuterie;
 
@@ -19,15 +19,13 @@ namespace Radfall
 
         private Renderer renderer;
 
-        private Drawable fond;
-
         private EntityManager entityManager;
 
         private Map map;
 
-        public Player player;
+        private Player player;
 
-        public Monster monster;
+        private Monster monster;
 
         public enum Action
         {
@@ -58,10 +56,10 @@ namespace Radfall
             map.Init(canva);
 
             // Setup les Input
-            InputManager.BindKey(Game.Action.Left, Key.Q);
-            InputManager.BindKey(Game.Action.Right, Key.D);
-            InputManager.BindKey(Game.Action.Jump, Key.Space);
-            InputManager.BindKey(Game.Action.BaseAttack, Key.E);
+            InputManager.BindKey(Action.Left, Key.Q);
+            InputManager.BindKey(Action.Right, Key.D);
+            InputManager.BindKey(Action.Jump, Key.Space);
+
         }
 
         private void HandleInput()
@@ -99,7 +97,7 @@ namespace Radfall
             map.Draw(renderer);
         }
 
-        public void Jeu(object? sender, EventArgs e)
+        public void Run(object? sender, EventArgs e)
         {   
             HandleInput();
             Update();
