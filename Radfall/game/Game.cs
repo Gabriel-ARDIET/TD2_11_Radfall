@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace Radfall
 {
-    internal class Game
+    public class Game
     {
         private static DispatcherTimer minuterie;
 
@@ -19,17 +19,15 @@ namespace Radfall
 
         private Renderer renderer;
 
-        private Drawable fond;
-
         private EntityManager entityManager;
 
         private Map map;
 
-        public Player player;
+        private Player player;
 
-        public Monster monster;
+        private Monster monster;
 
-        private enum Action
+        public enum Action
         {
             Left,
             Right,
@@ -60,6 +58,7 @@ namespace Radfall
             InputManager.BindKey(Action.Left, Key.Q);
             InputManager.BindKey(Action.Right, Key.D);
             InputManager.BindKey(Action.Jump, Key.Space);
+
         }
 
         private void HandleInput()
@@ -93,7 +92,7 @@ namespace Radfall
             map.Draw(renderer);
         }
 
-        public void Jeu(object? sender, EventArgs e)
+        public void Run(object? sender, EventArgs e)
         {   
             HandleInput();
             Update();

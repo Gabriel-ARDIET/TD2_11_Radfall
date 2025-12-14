@@ -24,24 +24,17 @@ namespace Radfall
     public partial class UCJeu : UserControl
     {
         private static DispatcherTimer minuterie;
-
-        private Game radfall;
         public UCJeu()
         {
             InitializeComponent();
-
-            // Initailisation ici car sinon canva n'est pas encore initialisé avant
-            radfall = new Game(canva);
-
-            InitTimer();
         }
 
-        private void InitTimer()
+        public void GameLoop(Game radfall)
         {
             // Init le timer
             minuterie = new DispatcherTimer();
             minuterie.Interval = TimeSpan.FromMilliseconds(16);
-            minuterie.Tick += radfall.Jeu;
+            minuterie.Tick += radfall.Run;
             minuterie.Start();
         }
 
