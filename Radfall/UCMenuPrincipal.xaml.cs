@@ -24,5 +24,11 @@ namespace Radfall
         {
             InitializeComponent();
         }
+
+        private void butOption_Click(object sender, RoutedEventArgs e)
+        {
+            Options options = new Options();
+            bool? rep = options.ShowDialog();
+        }
     }
 }
