@@ -14,6 +14,7 @@ namespace Radfall
     internal class EntityManager
     {
         private List<Entity> entities = new List<Entity>();
+        public IReadOnlyList<Entity> Entities => entities;
         private Canvas canvas;
         public EntityManager(Canvas canvas)
         {
@@ -32,7 +33,7 @@ namespace Radfall
         }
         public void UpdateAll(double dTime)
         {
-            foreach (var entity in entities)
+            foreach (Entity entity in entities)
             {
                 entity.Update(dTime);
             }
@@ -41,7 +42,7 @@ namespace Radfall
         }
         public void RenderAll(Renderer renderer)
         {
-            foreach (var entity in entities)
+            foreach (Entity entity in entities)
             {
                 renderer.Draw(entity);
             }
@@ -94,15 +95,19 @@ namespace Radfall
                     {
                         if (e1 is Monster m && e2 is Player p)
                         {
-                            p.TakeDamage(m.AttackDamage, m, m.x, 3, 0.5);
+                            DoAttack(p,m);
                         }
                         else if (e2 is Monster m2 && e1 is Player p2)
                         {
-                            p2.TakeDamage(m2.AttackDamage, m2, m2.x, 3, 0.5);
+                            DoAttack(p2, m2);
                         }
                     }
                 }
             }
+        }
+        private void DoAttack(Player player, Monster monster)
+        {
+            player.TakeDamage(monster.AttackDamage, monster, monster.x, 300,500, 1, 0.5);
         }
     }
 }

@@ -29,11 +29,12 @@ namespace Radfall
 
         public Monster monster;
 
-        private enum Action
+        public enum Action
         {
             Left,
             Right,
-            Jump
+            Jump,
+            BaseAttack
         }
 
         public Game(Canvas canva) { 
@@ -47,19 +48,20 @@ namespace Radfall
 
             RessourceManager.AssetsDirectory = "../../../assets/";
 
-            player = new Player(1000, 1500, RessourceManager.LoadImage("Perso.png"));
+            player = new Player(1000, 1500, RessourceManager.LoadImage("Perso.png"),entityManager,100,500,1000,false);
             entityManager.Add(player);
 
-            monster = new Monster(300, 300, RessourceManager.LoadImage("chauve-souris.png"),1,"chauve-souris",player,10);
+            monster = new Monster(300, 300, RessourceManager.LoadImage("chauve-souris.png"), entityManager, 100,200,0,true,player,10);
             entityManager.Add(monster);
 
             map = new Map();
             map.Init(canva);
 
             // Setup les Input
-            InputManager.BindKey(Action.Left, Key.Q);
-            InputManager.BindKey(Action.Right, Key.D);
-            InputManager.BindKey(Action.Jump, Key.Space);
+            InputManager.BindKey(Game.Action.Left, Key.Q);
+            InputManager.BindKey(Game.Action.Right, Key.D);
+            InputManager.BindKey(Game.Action.Jump, Key.Space);
+            InputManager.BindKey(Game.Action.BaseAttack, Key.E);
         }
 
         private void HandleInput()
@@ -75,6 +77,10 @@ namespace Radfall
             if (InputManager.IsActionActive(Action.Jump))
             {
                 player.Jump();
+            }
+            if (InputManager.IsActionActive(Action.BaseAttack))
+            {
+                player.BaseAttack();
             }
         }
 

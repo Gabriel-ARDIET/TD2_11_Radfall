@@ -1,50 +1,87 @@
-﻿using System;
+﻿using Radfall.game;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace Radfall
 {
-    internal class Attack : Drawable
+    internal class Attack(double x, double y, Image img, int damage, Being attacker, EntityManager manager, double knockbackX, double knockbackY,
+        double invincibletime, double inactiveDuration, double activeDuration, double stunTime,double cooldownTime, double deplacementX, double deplacementY) : Entity(x, y, img)
     {
-        public int Damage { get; init; }
-        public Entity Attacker { get; init; }
-        public double Knockback { get; init; }
-        public double InvincibleTime { get; init; }
-        public double InactiveDuration { get; init; }
-        public double ActiveDuration { get; init; }
-        public double StunTime { get; init; }
-        public bool IsActive { get; set; }
-        public Rect Hitbox { get; set; }
-        double timer = 0;
-        public Attack(double x, double y, Image img, int damage, Entity attacker, double knockback, 
-            double invincibletime,double inactiveDuration, double activeDuration, double stunTime) : base(x, y, img)
+        private int Damage { get; init; } = damage;
+        private Being Attacker { get; init; } = attacker;
+        private EntityManager entityManager = manager;
+        private double KnockbackX { get; init; } = knockbackX;
+        private double KnockbackY { get; init; } = knockbackY;
+        private double InvincibleTime { get; init; } = invincibletime;
+        private double InactiveDuration { get; init; } = inactiveDuration;
+        private double ActiveDuration { get; init; } = activeDuration;
+        private double StunTime { get; init; } = stunTime;
+        private double CooldownTime { get; init; } = cooldownTime;
+        private bool InCooldown { get; set; } = false;
+        private bool IsActive { get; set; } = false;
+        private double DeplacementX { get; init; } = deplacementX;
+        private double DeplacementY { get; init; } = deplacementY;
+
+        public void Init(double x, double y)
         {
-            Damage = damage;
-            Attacker = attacker;
-            Knockback = knockback;
-            InvincibleTime = invincibletime;
-            InactiveDuration = inactiveDuration;
-            ActiveDuration = activeDuration;
-            StunTime = stunTime;
-            IsActive = false;
-            Hitbox = new Rect(x, y, img.Width, img.Height);
+            if (!InCooldown)
+            {
+                this.x = x; this.y = y;
+                StartAttackTimers();
+                entityManager.Add(this);
+                AttackMovement();
+            }
         }
-        public void Update(double dTime)
+
+        private void StartAttackTimers()
         {
-            timer += dTime;
-            if (timer >= InactiveDuration)
+            InCooldown = true;
+            TimeManager.AddTimer(InactiveDuration, () => 
             {
                 IsActive = true;
-                timer = 0;
-            }
-            else if (timer >= ActiveDuration)
+                TimeManager.AddTimer(ActiveDuration, () =>
+                {
+                    IsActive = false;
+                    Attacker.currentAttack = null;
+                    entityManager.Remove(this);
+                });
+            });
+            TimeManager.AddTimer(CooldownTime, () =>
             {
-                IsActive = false;
-                timer = 0;
+                InCooldown = false;
+            });
+        }
+        private void AttackMovement()
+        {
+            Attacker.VelocityY = -DeplacementY;
+            Attacker.VelocityX = DeplacementX;
+        }
+
+        public override void Update(double dTime)
+        {
+            if (IsActive)
+                CheckEntities();
+        }
+        private void CheckEntities()
+        {
+            foreach (var entity in entityManager.Entities)
+            {
+                if (entity is Being)
+                {
+                    if (Hitbox.IntersectsWith(entity.Hitbox) && entity != Attacker)
+                    {
+                        Being being = entity as Being;
+                        being.TakeDamage(Damage, Attacker, x, KnockbackX, KnockbackY, InvincibleTime, StunTime);
+                    }
+                }
             }
         }
     }

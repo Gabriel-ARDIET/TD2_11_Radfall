@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using System.Windows;
 using Radfall.core;
 using Radfall.map;
+using System.Diagnostics;
 
 namespace Radfall
 {
@@ -18,32 +19,21 @@ namespace Radfall
     {
         public const double GRAVITY = 30000;
 
-        public int Id { get; init; }
-        public string Name { get; init; }
-        public int MaxHealth { get; set; }
-        public int Health { get; set; }
-        public double Speed { get; set; }
-        public double JumpForce { get; set; }
         public double VelocityX { get; set; }
         public double VelocityY { get; set; }
         public double AccelerationX { get; set; }
         public double AccelerationY {  get; set; } 
         public double oldPosX { get; set; }
         public double oldPosY { get; set; }
-        public bool IsFlying { get; set; }
         public bool IsVisible { get; set; }
-        public bool IsGrounded { get; set; }
-        public bool IsInvicible { get; set; }
         public bool IsSolid { get; set; }
-        public bool IsStunned { get; set; }
+        public bool IsGrounded { get; set; }
         public Rect Hitbox { get; set; }
         public AnimationController Animation {  get; set; }
 
-        public Entity(double x, double y, Image img, int id, string name)
+        public Entity(double x, double y, Image img)
         : base(x, y, img)
         {
-            Id = id;
-            Name = name;
             Hitbox = new Rect(x, y, img.Width, img.Height);
             Animation = new AnimationController(img);
             oldPosX = x;
@@ -51,8 +41,7 @@ namespace Radfall
         }
         public virtual void Update(double dTime) // virtual permet de rendre la méthode personnalisable pour les enfants qui peuvent donc la réécrire avec override
         {
-            ApplyGravity(dTime);
-            //UpdatePhysic(dTime);
+            UpdatePhysic(dTime);
             UpdateHitbox();
             Animation.Update();
         }
@@ -67,15 +56,6 @@ namespace Radfall
         private void UpdateHitbox()
         {
             Hitbox = new Rect(x, y, img.Width, img.Height);
-        }
-
-        private void ApplyGravity(double dTime)
-        {
-            if (!IsFlying)
-            {
-                VelocityY += 50;
-                AccelerationY += GRAVITY * dTime;
-            }
         }
 
         private void UpdatePhysic(double dTime)
@@ -94,7 +74,6 @@ namespace Radfall
             AccelerationX = 0;
             AccelerationY = 0;
         }
-
         public bool CollideWithMap()
         {
             bool collide = false;
@@ -113,7 +92,7 @@ namespace Radfall
                 {
                     // Verif 
                     if (j >= MapCollider.MapColliders.GetLength(0) || i >= MapCollider.MapColliders.GetLength(1))
-                        { continue; }
+                    { continue; }
                     if (MapCollider.MapColliders[j, i] > 0)
                     {
                         if (MapCollider.MapColliders[j, i] == 2)
@@ -125,33 +104,6 @@ namespace Radfall
             if (!collide)
                 IsGrounded = false;
             return collide;
-        }
-
-        public void TakeDamage(int damage, Entity attacker, double attackX, double knockback, double invicibilityTime)
-        {
-            if (IsInvicible) return;
-
-            Health -= damage;
-            Health = Math.Max(Health, 0);
-
-            double direction = Math.Sign(x - attackX);
-            VelocityX += knockback * direction;
-            VelocityY -= knockback / 2;
-
-            if (Health > 0)
-            {
-                StartInvincibility(invicibilityTime);
-            }
-            else
-            {
-                //Die();
-            }
-        }
-
-        private void StartInvincibility(double invicibilityTime)
-        {
-            IsInvicible = true;
-            Timer timer = new Timer(invicibilityTime, () => { IsInvicible = false; });
         }
     }
 }
