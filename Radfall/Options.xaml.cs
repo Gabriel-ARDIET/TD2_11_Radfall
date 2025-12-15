@@ -19,6 +19,7 @@ namespace Radfall
     /// </summary>
     public partial class Options : Window
     {
+        public Dictionary<Game.Action, Key> inputs = new Dictionary<Game.Action, Key>();
         public Options()
         {
             InitializeComponent();
@@ -31,9 +32,16 @@ namespace Radfall
             switch (((TextBox)sender).Name)
             {
                 case "txtGauche":
-                    InputManager.ChangeKey(Game.Action.Left, key);
+                    inputs.Add(Game.Action.Left, key);
+                    break;
+                case "txtDroite":
+                    inputs.Add(Game.Action.Right, key);
+                    break;
+                case "txtSaut":
+                    inputs.Add(Game.Action.Jump, key);
                     break;
             }
+
         }
 
         private void butValider_Click(object sender, RoutedEventArgs e)
