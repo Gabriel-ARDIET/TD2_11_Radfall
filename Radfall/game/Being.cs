@@ -51,7 +51,7 @@ namespace Radfall.game
             Health -= damage;
             Health = Math.Max(Health, 0);
 
-            double direction = Math.Sign(x - attackX);
+            TakeKnockback(attackX, knockbackX, knockbackY);
             VelocityX += knockbackX * direction;
             VelocityY -= knockbackY;
 
@@ -63,6 +63,26 @@ namespace Radfall.game
                 //Die();
             }
             Debug.WriteLine(Health);
+        }
+
+        internal virtual void Die()
+        {
+            entityManager.Remove(this);
+            // Donner de l'accoutumance etc...
+        }
+
+        private void TakeKnockback(double attackX, double knockbackX, double knockbackY)
+        {
+            double direction = Math.Sign(x - attackX);
+            VelocityX += knockbackX * direction;
+            VelocityY -= knockbackY;
+            TimeManager.AddTimer(0.3, () =>
+            {
+                if (Math.Abs(VelocityX) > 0)
+                    VelocityX -= knockbackX * direction;
+                if (Math.Abs(VelocityY) > 0)
+                    VelocityY += knockbackY;
+            });
         }
 
         private void StartStunTime(double stunTime)
