@@ -43,7 +43,8 @@ namespace Radfall.game
             }
         }
 
-        public void TakeDamage(int damage, Entity attacker, double attackX, double knockbackX, double knockbackY, double invicibilityTime, double stunTime)
+        public void TakeDamage(int damage, Entity attacker, double attackX, double knockbackX, double knockbackY, double invicibilityTime,
+            double stunTime)
         {
             if (IsInvicible) return;
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,9 +29,17 @@ namespace Radfall
         private bool IsActive { get; set; } = false;
         private double DeplacementX { get; init; } = deplacementX;
         private double DeplacementY { get; init; } = deplacementY;
+        private bool IsFacingLeft { get; set; } = false;
 
-        public void Init(double x, double y)
+        public void Init(double x, double y, bool isFacingLeft)
         {
+            IsSolid = false;
+            IsFacingLeft = isFacingLeft;
+            x = x + (Attacker.width / 2); // Place l'origine de l'attaque au milieu de l'attaquant
+            if (IsFacingLeft)
+            {
+                x = x - img.Width; // Déplace l'origine à gauche si l'attaquant regarde à gauche
+            }
             if (!InCooldown)
             {
                 this.x = x; this.y = y;
@@ -79,7 +88,10 @@ namespace Radfall
                     if (Hitbox.IntersectsWith(entity.Hitbox) && entity != Attacker)
                     {
                         Being being = entity as Being;
-                        being.TakeDamage(Damage, Attacker, x, KnockbackX, KnockbackY, InvincibleTime, StunTime);
+                        if (IsFacingLeft)
+                            being.TakeDamage(Damage, Attacker, x+img.Width, KnockbackX, KnockbackY, InvincibleTime, StunTime);
+                        else
+                            being.TakeDamage(Damage, Attacker, x, KnockbackX, KnockbackY, InvincibleTime, StunTime);
                     }
                 }
             }

@@ -15,6 +15,7 @@ namespace Radfall
         public int MaxPoison {  get; set; }
         public int Poison { get; set; }
         public int Accoutumance { get; set; }
+        public bool IsFacingLeft { get; set; } = false;
         private Attack baseAttack;
         public Player(double x, double y, Image img, EntityManager entityManager, int maxHealth, double speed, double jumpForce,bool isFlying)
             : base(x, y, img, entityManager, maxHealth, speed, jumpForce, isFlying)
@@ -32,6 +33,7 @@ namespace Radfall
             if (!IsStunned)
             {
                 x -= Speed * TimeManager.DeltaTime;
+                IsFacingLeft = true;
             }
         }
 
@@ -40,6 +42,7 @@ namespace Radfall
             if (!IsStunned)
             {
                 x += Speed * TimeManager.DeltaTime;
+                IsFacingLeft = false;
             }
         }
 
@@ -56,7 +59,7 @@ namespace Radfall
             if (!IsStunned)
             {
                 currentAttack = baseAttack;
-                currentAttack.Init(x,y);
+                currentAttack.Init(x,y,IsFacingLeft);
             }
         }
         public override void Update(double dTime)
