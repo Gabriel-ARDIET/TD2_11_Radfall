@@ -27,7 +27,7 @@ namespace Radfall
         public double oldPosX { get; set; }
         public double oldPosY { get; set; }
         public bool IsVisible { get; set; }
-        public bool IsSolid { get; set; }
+        public bool IsSolid { get; set; } = true;
         public bool IsGrounded { get; set; }
         public Rect Hitbox { get; set; }
         public AnimationController Animation {  get; set; }
@@ -44,7 +44,7 @@ namespace Radfall
         }
         public virtual void Update(double dTime) // virtual permet de rendre la méthode personnalisable pour les enfants qui peuvent donc la réécrire avec override
         {
-            UpdatePhysic(dTime);
+            //UpdatePhysic(dTime);
             UpdateHitbox();
             Animation.Update();
         }
