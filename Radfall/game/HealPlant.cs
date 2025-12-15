@@ -11,7 +11,7 @@ namespace Radfall.game
     {
         public const int HEAL_AMOUNT = 20;
 
-        public HealPlant(double x, double y, Image img) : base (x, y, img)
+        public HealPlant(double x, double y, Image img, EntityManager entityManager) : base (x, y, img, entityManager)
         {
 
             this.x = x;
