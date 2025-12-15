@@ -41,6 +41,7 @@ namespace Radfall
             oldPosY = y;
             entityManager = manager;
             entityManager.Add(this);
+            IsVisible = true;
         }
         public virtual void Update(double dTime) // virtual permet de rendre la méthode personnalisable pour les enfants qui peuvent donc la réécrire avec override
         {
@@ -93,7 +94,7 @@ namespace Radfall
                     // Verif 
                     if (j >= MapCollider.MapColliders.GetLength(0) || i >= MapCollider.MapColliders.GetLength(1))
                     { continue; }
-                    if (MapCollider.MapColliders[j, i] > 0)
+                    if (MapCollider.MapColliders[j, i] == 1 || MapCollider.MapColliders[j, i] == 2)
                     {
                         if (MapCollider.MapColliders[j, i] == 2)
                             IsGrounded = true;
