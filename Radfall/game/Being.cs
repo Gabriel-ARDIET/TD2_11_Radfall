@@ -76,5 +76,14 @@ namespace Radfall.game
             IsInvicible = true;
             TimeManager.AddTimer(invicibilityTime, () => { IsInvicible = false; });
         }
+
+        public void Heal(int healAmount)
+        {
+            Health += healAmount;
+            if (Health > MaxHealth)
+            {
+                Health = MaxHealth;
+            }
+        }
     }
 }

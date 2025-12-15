@@ -72,5 +72,14 @@ namespace Radfall
         {
             Poison = Math.Min(Poison + damage, MaxPoison);
         }
+
+        public void Purify(int purifyAmount)
+        {
+            Poison -= purifyAmount;
+            if (Poison < 0)
+            {
+                Poison = 0;
+            }
+        }
     }
 }
