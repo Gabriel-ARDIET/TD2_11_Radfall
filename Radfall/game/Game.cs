@@ -59,6 +59,7 @@ namespace Radfall
             InputManager.BindKey(Action.Left, Key.Q);
             InputManager.BindKey(Action.Right, Key.D);
             InputManager.BindKey(Action.Jump, Key.Space);
+            InputManager.BindKey(Action.BaseAttack, Key.E);
 
         }
 
