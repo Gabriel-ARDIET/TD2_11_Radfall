@@ -11,7 +11,6 @@ namespace Radfall.game
 {
     internal class Being : Entity
     {
-        public EntityManager entityManager;
         public int MaxHealth { get; set; }
         public int Health { get; set; }
         public double Speed { get; set; }
@@ -21,10 +20,9 @@ namespace Radfall.game
         public bool IsStunned { get; set; }
         public Attack ?currentAttack { get; set; }
 
-        public Being(double x, double y, Image img, EntityManager manager, int maxHealth, double speed, double jumpForce,
-            bool isFlying = false) : base(x, y, img)
+        public Being(double x, double y, Image img, EntityManager entityManager, int maxHealth, double speed, double jumpForce,
+            bool isFlying = false) : base(x, y, img, entityManager)
         {
-            entityManager = manager;
             MaxHealth = maxHealth;
             Health = maxHealth;
             JumpForce = jumpForce;

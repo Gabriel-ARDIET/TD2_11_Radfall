@@ -14,10 +14,9 @@ namespace Radfall
         private Entity Target { set; get; }
         public int AttackDamage { get; set; }
         private double directionX, directionY;
-        public Monster(double x, double y, Image img, EntityManager manager, int maxHealth, double speed, double jumpForce,
-           bool isFlying, Entity target, int attackDamage) : base(x, y, img, manager, maxHealth,speed,jumpForce,isFlying)
+        public Monster(double x, double y, Image img, EntityManager entityManager, int maxHealth, double speed, double jumpForce,
+           bool isFlying, Entity target, int attackDamage) : base(x, y, img, entityManager, maxHealth,speed,jumpForce,isFlying)
         {
-            entityManager = manager;
             MaxHealth = maxHealth;
             Health = MaxHealth;
             Speed = speed;

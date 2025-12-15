@@ -12,12 +12,11 @@ using System.Windows.Documents;
 
 namespace Radfall
 {
-    internal class Attack(double x, double y, Image img, int damage, Being attacker, EntityManager manager, double knockbackX, double knockbackY,
-        double invincibletime, double inactiveDuration, double activeDuration, double stunTime,double cooldownTime, double deplacementX, double deplacementY) : Entity(x, y, img)
+    internal class Attack(double x, double y, Image img, int damage, Being attacker, EntityManager entityManager, double knockbackX, double knockbackY,
+        double invincibletime, double inactiveDuration, double activeDuration, double stunTime,double cooldownTime, double deplacementX, double deplacementY) : Entity(x, y, img, entityManager)
     {
         private int Damage { get; init; } = damage;
         private Being Attacker { get; init; } = attacker;
-        private EntityManager entityManager = manager;
         private double KnockbackX { get; init; } = knockbackX;
         private double KnockbackY { get; init; } = knockbackY;
         private double InvincibleTime { get; init; } = invincibletime;
@@ -67,6 +66,7 @@ namespace Radfall
 
         public override void Update(double dTime)
         {
+            UpdateHitbox();
             if (IsActive)
                 CheckEntities();
         }

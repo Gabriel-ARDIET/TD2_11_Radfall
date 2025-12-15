@@ -19,6 +19,7 @@ namespace Radfall
     {
         public const double GRAVITY = 30000;
 
+        public EntityManager entityManager;
         public double VelocityX { get; set; }
         public double VelocityY { get; set; }
         public double AccelerationX { get; set; }
@@ -31,13 +32,15 @@ namespace Radfall
         public Rect Hitbox { get; set; }
         public AnimationController Animation {  get; set; }
 
-        public Entity(double x, double y, Image img)
+        public Entity(double x, double y, Image img, EntityManager manager)
         : base(x, y, img)
         {
             Hitbox = new Rect(x, y, img.Width, img.Height);
             Animation = new AnimationController(img);
             oldPosX = x;
             oldPosY = y;
+            entityManager = manager;
+            entityManager.Add(this);
         }
         public virtual void Update(double dTime) // virtual permet de rendre la méthode personnalisable pour les enfants qui peuvent donc la réécrire avec override
         {
@@ -53,7 +56,7 @@ namespace Radfall
                 Canvas.SetZIndex(img, zIndex);
             }
         }
-        private void UpdateHitbox()
+        internal void UpdateHitbox()
         {
             Hitbox = new Rect(x, y, img.Width, img.Height);
         }
