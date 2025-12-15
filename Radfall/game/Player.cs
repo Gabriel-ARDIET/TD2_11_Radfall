@@ -68,5 +68,14 @@ namespace Radfall
             }
             base.Update(dTime);
         }
+
+        public void Purify(int purifyAmount)
+        {
+            Poison -= purifyAmount;
+            if (Poison < 0)
+            {
+                Poison = 0;
+            }
+        }
     }
 }
