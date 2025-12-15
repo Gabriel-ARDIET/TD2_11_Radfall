@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Radfall.game;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace Radfall
         private EntityManager entityManager;
 
         private Map map;
+
+        private PlayerUI playerUI;
 
         private Player player;
 
@@ -60,6 +63,8 @@ namespace Radfall
             InputManager.BindKey(Action.Right, Key.D);
             InputManager.BindKey(Action.Jump, Key.Space);
 
+            // Setup ui
+            playerUI = new PlayerUI(player, canva);
         }
 
         private void HandleInput()
@@ -89,6 +94,8 @@ namespace Radfall
             renderer.camera.Update(canva, player);
 
             entityManager.UpdateAll(TimeManager.DeltaTime);
+
+            playerUI.Update();
         }
 
         private void Render()
