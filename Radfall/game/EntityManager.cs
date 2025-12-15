@@ -20,17 +20,20 @@ namespace Radfall
         {
             this.canvas = canvas;
         }
+
         public void Add(Entity entity)
         {
             entities.Add(entity);
             entity.InitializeRenderer(canvas);
         }
+
         public void Remove(Entity entity)
         {
             entities.Remove(entity);
             if (canvas.Children.Contains(entity.img))
                 canvas.Children.Remove(entity.img);
         }
+
         public void UpdateAll(double dTime)
         {
             foreach (Entity entity in entities)
@@ -40,6 +43,7 @@ namespace Radfall
 
             CheckCollisions();
         }
+
         public void RenderAll(Renderer renderer)
         {
             foreach (Entity entity in entities)
@@ -61,28 +65,22 @@ namespace Radfall
                     // Si Collision on ajoute une force
 
                     // En x
-                    entities[i].x += entities[i].VelocityX * TimeManager.DeltaTime;
-                    entities[i].VelocityX += entities[i].AccelerationX * TimeManager.DeltaTime;
-                    entities[i].AccelerationX = 0;
+                    entities[i].UpdatePhysicX();
 
                     if (entities[i].CollideWithMap())
                     {
                         entities[i].x = entities[i].oldPosX;
-                        entities[i].VelocityX = 0;
                     }
 
                     entities[i].oldPosX = entities[i].x;
 
-
                     // En y
-                    entities[i].y += entities[i].VelocityY * TimeManager.DeltaTime;
-                    entities[i].VelocityY += entities[i].AccelerationY * TimeManager.DeltaTime;
-                    entities[i].AccelerationY = 0;
+                    entities[i].UpdatePhysicY();
 
                     if (entities[i].CollideWithMap())
                     {
                         entities[i].y = entities[i].oldPosY;
-                        entities[i].VelocityY = 0;
+
                     }
 
                     entities[i].oldPosY = entities[i].y;
