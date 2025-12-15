@@ -40,6 +40,33 @@ namespace Radfall
             foreach (Entity entity in entities)
             {
                 entity.Update(dTime);
+
+                // Update des positions et check des collisions
+                if (entity.IsSolid)
+                {
+                    // On distingue les 2 axes pour pouvoir gérer les collisions facilement
+                    // En x
+                    entity.UpdatePhysicX();
+
+                    if (entity.CollideWithMap())
+                    {
+                        entity.x = entity.oldPosX;
+                        entity.VelocityX = 0;
+                    }
+
+                    entity.oldPosX = entity.x;
+
+                    // En y
+                    entity.UpdatePhysicY();
+
+                    if (entity.CollideWithMap())
+                    {
+                        entity.y = entity.oldPosY;
+                        entity.VelocityY = 0;
+                    }
+
+                    entity.oldPosY = entity.y;
+                }
             }
 
             CheckCollisions();
@@ -62,36 +89,7 @@ namespace Radfall
         {
             for (int i = 0; i < entities.Count; i++)
             {
-                if (entities[i].IsSolid)
-                {
-                    // On distingue les 2 axes pour pouvoir gérer les collisions facilement
-
-                    // Pour chaque axe on :
-                    // Verifie si à l'instant d'après y'a collision
-                    // Si Collision on ajoute une force
-
-                    // En x
-                    entities[i].UpdatePhysicX();
-
-                    if (entities[i].CollideWithMap())
-                    {
-                        entities[i].x = entities[i].oldPosX;
-                        entities[i].VelocityX = 0;
-                    }
-
-                    entities[i].oldPosX = entities[i].x;
-
-                    // En y
-                    entities[i].UpdatePhysicY();
-
-                    if (entities[i].CollideWithMap())
-                    {
-                        entities[i].y = entities[i].oldPosY;
-                        entities[i].VelocityY = 0;
-                    }
-
-                    entities[i].oldPosY = entities[i].y;
-                }
+                
 
                 // Collision between entity
                 for (int j = i + 1; j < entities.Count; j++)
