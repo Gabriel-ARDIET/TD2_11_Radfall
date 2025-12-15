@@ -49,14 +49,14 @@ namespace Radfall
 
             RessourceManager.AssetsDirectory = "../../../assets/";
 
-            player = new Player(1000, 1500, RessourceManager.LoadImage("Perso.png"),entityManager,100,500,1000,false);
+            player = new Player(1000, 1500, RessourceManager.LoadImage("Perso.png"),entityManager,100,500,200,false);
             entityManager.Add(player);
 
             monster = new Monster(300, 300, RessourceManager.LoadImage("chauve-souris.png"), entityManager, 100,200,0,true,player,10);
             entityManager.Add(monster);
 
             map = new Map();
-            map.Init(canva);
+            map.Init(canva, entityManager);
 
             // Setup les Input
             InputManager.BindKey(Action.Left, Key.Q);

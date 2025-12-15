@@ -20,14 +20,16 @@ namespace Radfall.game
 
         private Rectangle poisonBar;
 
-        public const double BAR_HEIGHT = 20;
+        public const double BAR_HEIGHT = 30;
 
-        public const double BAR_WIDTH = 200;
+        public const double BAR_WIDTH = 300;
 
         public const int X = 50;
         public const int Y = 50;
 
-        public const int GAP = 25;
+        public const int GAP = 50;
+
+        public const int Z_INDEX = 10;
 
         public PlayerUI(Player player, Canvas canva) 
         {
@@ -39,12 +41,18 @@ namespace Radfall.game
             healthBar.Height = BAR_HEIGHT;
             healthBar.Fill = Brushes.Green;
             canva.Children.Add(healthBar);
+            Canvas.SetLeft(healthBar, X);
+            Canvas.SetTop(healthBar, Y);
+            Canvas.SetZIndex(healthBar, Z_INDEX);
 
             poisonBar = new Rectangle();
             poisonBar.Width = BAR_WIDTH;
             poisonBar.Height = BAR_HEIGHT;
             poisonBar.Fill = Brushes.Violet;
             canva.Children.Add(poisonBar);
+            Canvas.SetLeft(poisonBar, X);
+            Canvas.SetTop(poisonBar, Y + GAP);
+            Canvas.SetZIndex(poisonBar, Z_INDEX);
         }
 
         public void Update()
@@ -54,13 +62,8 @@ namespace Radfall.game
             healthBar.Width = healthRatio * BAR_WIDTH;
 
             // Update poisonBar
-            double poisonRatio = (double)player.Health / (double)player.MaxHealth;
+            double poisonRatio = (double)player.Poison / (double)player.MaxPoison;
             poisonBar.Width = poisonRatio * BAR_WIDTH;
-        }
-
-        public void Draw()
-        {
-
         }
     }
 }
