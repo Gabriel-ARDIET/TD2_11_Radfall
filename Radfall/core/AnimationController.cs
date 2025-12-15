@@ -10,7 +10,9 @@ using System.Windows.Documents;
 
 namespace Radfall.core
 {
-    // C'est pas un manager mais un controller pour chaque entity que l'on sqouhaite
+    /// <summary>
+    /// Tool to manage easely animations.
+    /// </summary>
     internal class AnimationController
     {
         private Dictionary<string, Animation> animations = new Dictionary<string, Animation>();
@@ -19,9 +21,11 @@ namespace Radfall.core
 
         private double chrono;
 
-        private int currentStep;
+        private int currentStep; // Of the current animation
+
         public Animation CurrentAnimation {  get; set; }
 
+        /// <param name="imgSource">Image that you want to change when the animation happens</param>
         public AnimationController(Image imgSource) 
         {
             this.imgSource = imgSource;
@@ -29,51 +33,54 @@ namespace Radfall.core
             currentStep = 0;
         }
 
+        /// <summary>
+        /// Change the current animation
+        /// </summary>
         public void SetCurrent(string animationName)
         {
-            // On vérifie que l'animation existe
-            bool exist = false;
-            foreach (var animation in animations)
-            {
-                if (animationName == animation.Key)
-                {
-                    exist = true;
-                    break;
-                }
-            }
-            if (!exist)
-            {
-                Debug.WriteLine("Erreur : L'animation n'existe pas");
-            }
-
-            // Mettre l'animation voulue
-            CurrentAnimation = animations[animationName];
-        }
-
-        public void Add(string animationName, string pathImg, uint nbFrame, double animationSpeed)
-        {
-            // Check si l'anim existe déja ou pas
+            // Check if the image exist before set it to current
             if (animations.ContainsKey(animationName))
             {
-                    Debug.WriteLine("Erreur : l'animation existe déja");
+                CurrentAnimation = animations[animationName];
             }
-            else 
-            {
+        }
+
+        /// <summary>
+        /// Add an animation
+        /// </summary>
+        /// <param name="animationName">It's the key that you will need to use for SetCurrent()</param>
+        /// <param name="pathImg">Check the animation class for more info</param>
+        /// <param name="animationSpeed">In second</param>
+        public void Add(string animationName, string pathImg, uint nbFrame, double animationSpeed)
+        {
+            // Check if an animation with the same key already exist
+            if (!animations.ContainsKey(animationName))
+            { 
                 Animation animation = new Animation(pathImg, nbFrame, animationSpeed);
                 animations.Add(animationName, animation);
             }
         }
 
+        /// <summary>
+        /// You need to call this function every frame
+        /// </summary>
         public void Update()
         {
+            // Check if there is a current animation
+            // Because if not, there will be an error later
             if (CurrentAnimation != null)
             {
+                // Update the chrono
                 chrono += TimeManager.DeltaTime;
+
+                // Change the frame 
                 if (chrono >= CurrentAnimation.FrameInterval)
                 {
+                 
                     chrono = 0;
                     currentStep++;
 
+                    // Restart the loop
                     if (currentStep == CurrentAnimation.NbImgs)
                     {
                         currentStep = 0;
@@ -84,7 +91,9 @@ namespace Radfall.core
         }
     }
 
-    /////// Exemple utilisation ////////
+///////////////////////////////////////////////
+// EXEMPLE
+///////////////////////////////////////////////
     /*
      
     class Player : Drawable

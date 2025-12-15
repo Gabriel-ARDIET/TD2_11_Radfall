@@ -29,6 +29,13 @@ namespace Radfall
         {
             Options options = new Options();
             bool? rep = options.ShowDialog();
+            if (rep == true)
+            {
+                foreach (var element in options.inputs)
+                {
+                    InputManager.ChangeKey(element.Key, element.Value);
+                }
+            }
         }
     }
 }

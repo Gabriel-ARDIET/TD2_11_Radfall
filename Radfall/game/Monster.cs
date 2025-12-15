@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Radfall.game;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,34 +9,52 @@ using System.Windows.Controls;
 
 namespace Radfall
 {
-    class Monster : Entity
+    class Monster : Being
     {
         private Entity Target { set; get; }
         public int AttackDamage { get; set; }
         private double directionX, directionY;
-        public Monster(double x, double y, Image img, int id, string name, Entity target, int attackDamage) : base(x, y, img, id, name)
+        public Monster(double x, double y, Image img, EntityManager entityManager, int maxHealth, double speed, double jumpForce,
+           bool isFlying, Entity target, int attackDamage) : base(x, y, img, entityManager, maxHealth,speed,jumpForce,isFlying)
         {
+            MaxHealth = maxHealth;
+            Health = MaxHealth;
+            Speed = speed;
+            JumpForce = jumpForce;
+            IsFlying = isFlying;
             Target = target;
-            Speed = 300;
             AttackDamage = attackDamage;
+            VelocityX = 0;
+            VelocityY = 0;
         }
         public override void Update(double dTime)
         {
-            Move();
             base.Update(dTime);
+            Move();
         }
         public void Move()
         {
-            directionX = Target.x - x;
-            directionY = Target.y - y;
+            if (IsFlying)
+            {
+                directionX = Target.x - x;
+                directionY = Target.y - y;
 
-            // Normalisation de la direction
-            double length = Math.Sqrt(directionX * directionX + directionY * directionY);
-            directionX /= length;
-            directionY /= length;
+                // Normalisation de la direction
+                double length = Math.Sqrt(directionX * directionX + directionY * directionY);
+                directionX /= length;
+                directionY /= length;
 
-            VelocityX = directionX * Speed;
-            VelocityY = directionY * Speed;
+                if (!IsStunned)
+                {
+                    x += Speed * directionX * TimeManager.DeltaTime;
+                    y += Speed * directionY * TimeManager.DeltaTime;
+                }
+            }
+            else
+            {
+                directionX = Math.Sign(Target.x - x);
+                x += Speed * directionX * TimeManager.DeltaTime;
+            }
         }
     }
 }

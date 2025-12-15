@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Radfall.game;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace Radfall
 
         private Map map;
 
+        private PlayerUI playerUI;
+
         private Player player;
 
         private Monster monster;
@@ -31,7 +34,8 @@ namespace Radfall
         {
             Left,
             Right,
-            Jump
+            Jump,
+            BaseAttack
         }
 
         public Game(Canvas canva) { 
@@ -45,20 +49,23 @@ namespace Radfall
 
             RessourceManager.AssetsDirectory = "../../../assets/";
 
-            player = new Player(1000, 1500, RessourceManager.LoadImage("Perso.png"));
+            player = new Player(1000, 1500, RessourceManager.LoadImage("Perso.png"),entityManager,100,500,200,false);
             entityManager.Add(player);
 
-            monster = new Monster(300, 300, RessourceManager.LoadImage("chauve-souris.png"),1,"chauve-souris",player,10);
+            monster = new Monster(300, 300, RessourceManager.LoadImage("chauve-souris.png"), entityManager, 100,200,0,true,player,10);
             entityManager.Add(monster);
 
             map = new Map();
-            map.Init(canva);
+            map.Init(canva, entityManager);
 
             // Setup les Input
             InputManager.BindKey(Action.Left, Key.Q);
             InputManager.BindKey(Action.Right, Key.D);
             InputManager.BindKey(Action.Jump, Key.Space);
+            InputManager.BindKey(Action.BaseAttack, Key.E);
 
+            // Setup ui
+            playerUI = new PlayerUI(player, canva);
         }
 
         private void HandleInput()
@@ -75,6 +82,10 @@ namespace Radfall
             {
                 player.Jump();
             }
+            if (InputManager.IsActionActive(Action.BaseAttack))
+            {
+                player.BaseAttack();
+            }
         }
 
         private void Update()
@@ -84,6 +95,8 @@ namespace Radfall
             renderer.camera.Update(canva, player);
 
             entityManager.UpdateAll(TimeManager.DeltaTime);
+
+            playerUI.Update();
         }
 
         private void Render()
