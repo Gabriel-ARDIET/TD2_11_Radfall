@@ -1,4 +1,5 @@
-﻿using Radfall.map;
+﻿using Radfall.game;
+using Radfall.map;
 using System;
 using System.Collections.Generic;
 using System.Collections.Generic;
@@ -48,7 +49,12 @@ namespace Radfall
         {
             foreach (Entity entity in entities)
             {
-                renderer.Draw(entity);
+                if (entity.IsVisible)
+                {
+                    entity.img.Opacity = 100;
+                    renderer.Draw(entity);
+                }
+                else entity.img.Opacity = 0;
             }
         }
 
@@ -70,6 +76,7 @@ namespace Radfall
                     if (entities[i].CollideWithMap())
                     {
                         entities[i].x = entities[i].oldPosX;
+                        entities[i].VelocityX = 0;
                     }
 
                     entities[i].oldPosX = entities[i].x;
@@ -80,7 +87,7 @@ namespace Radfall
                     if (entities[i].CollideWithMap())
                     {
                         entities[i].y = entities[i].oldPosY;
-
+                        entities[i].VelocityY = 0;
                     }
 
                     entities[i].oldPosY = entities[i].y;
@@ -109,6 +116,14 @@ namespace Radfall
                         else if (e2 is Attack attack1 && e1 is Monster monster3)
                         {
                             //DoAttack(attack1, monster3);
+                        }
+                        if (e1 is Item healPlant && e2 is Player player3)
+                        {
+                            healPlant.IsGrabbed(player3);
+                        }
+                        else if (e2 is Item healPlant1 && e1 is Player player4)
+                        {
+                            healPlant1.IsGrabbed(player4);
                         }
                     }
                 }
