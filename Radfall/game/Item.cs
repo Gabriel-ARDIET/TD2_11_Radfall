@@ -19,6 +19,6 @@ namespace Radfall.game
             IsVisible = true;
         }
 
-        public virtual void Grab(Player player) { }
+        public virtual void IsGrabbed(Player player) { }
     }
 }
