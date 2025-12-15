@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace Radfall.game
             this.img = img;
         }
 
-        public override void Grab(Player player)
+        public override void IsGrabbed(Player player)
         {
             if (IsVisible)
             {

@@ -20,11 +20,14 @@ namespace Radfall.game
             this.img = img;
         }
 
-        public override void Grab(Player player)
+        public override void IsGrabbed(Player player)
         {
             if (IsVisible)
-            player.Heal(HealPlant.HEAL_AMOUNT);
-            IsVisible = false;
+            {
+                player.Heal(HealPlant.HEAL_AMOUNT);
+                IsVisible = false;
+                TimeManager.AddTimer(RespawnTime, () => { IsVisible = true; });
+            }
 
         }
     }

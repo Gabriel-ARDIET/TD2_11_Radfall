@@ -41,6 +41,7 @@ namespace Radfall
             oldPosY = y;
             entityManager = manager;
             entityManager.Add(this);
+            IsVisible = true;
         }
         public virtual void Update(double dTime) // virtual permet de rendre la méthode personnalisable pour les enfants qui peuvent donc la réécrire avec override
         {
@@ -61,26 +62,23 @@ namespace Radfall
             Hitbox = new Rect(x, y, img.Width, img.Height);
         }
 
-        private void UpdatePhysic(double dTime)
+        public void UpdatePhysicX()
         {
-            oldPosX = x;
-            oldPosY = y;
-            // On integre l'acceleration 
-            // De meme pour la vitesse
-            // Pour trouver la nouvelle position
-            VelocityX += AccelerationX * dTime;
-            VelocityY += AccelerationY * dTime;
-            x += VelocityX * dTime;
-            y += VelocityY * dTime;
-
-            // Reset l'acceleration
+            x += VelocityX * TimeManager.DeltaTime;
+            VelocityX += AccelerationX * TimeManager.DeltaTime;
             AccelerationX = 0;
+        }
+
+        public void UpdatePhysicY()
+        {
+            y += VelocityY * TimeManager.DeltaTime;
+            VelocityY += AccelerationY * TimeManager.DeltaTime;
             AccelerationY = 0;
         }
+
         public bool CollideWithMap()
         {
             bool collide = false;
-
             // On transforme la position en de l'entity en position tile
             int tileX = (int)x / Map.COLLISION_TILE_SIZE;
             int tileY = (int)y / Map.COLLISION_TILE_SIZE;
@@ -96,7 +94,7 @@ namespace Radfall
                     // Verif 
                     if (j >= MapCollider.MapColliders.GetLength(0) || i >= MapCollider.MapColliders.GetLength(1))
                     { continue; }
-                    if (MapCollider.MapColliders[j, i] > 0)
+                    if (MapCollider.MapColliders[j, i] == 1 || MapCollider.MapColliders[j, i] == 2)
                     {
                         if (MapCollider.MapColliders[j, i] == 2)
                             IsGrounded = true;

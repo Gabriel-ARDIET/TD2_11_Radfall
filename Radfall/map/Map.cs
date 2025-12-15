@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace Radfall
 {
@@ -55,8 +56,8 @@ namespace Radfall
             }
 
             // Initialisations des items sur la map
-            Image healPlantImg = RessourceManager.LoadImage("poison.png");
-            Image purifyingPlantImg = RessourceManager.LoadImage("hollow.jpg");
+            BitmapImage healPlantImg = RessourceManager.LoadBitmap("HealPlant.png");
+            BitmapImage purifyingPlantImg = RessourceManager.LoadBitmap("hollow.jpg");
 
             for (int i = 0;i < MapCollider.MapColliders.GetLength(0);i++)
             {
@@ -66,13 +67,28 @@ namespace Radfall
                     {
                         double posX = j * Map.COLLISION_TILE_SIZE;
                         double posY = i * Map.COLLISION_TILE_SIZE;
-                        HealPlant plant = new HealPlant(posX, posY, healPlantImg, eMng);
+                        //Image img = new Image { Source : healPlantImg};
+
+                        Image img;
+                        img = new Image();
+                        img.Source = healPlantImg;
+                        img.Width = 100;
+                        img.Height = 100;
+
+                        HealPlant plant = new HealPlant(posX, posY, img, eMng);
                     }
                     else if (MapCollider.MapColliders[i, j] == PurifyingPlant.MAP_VALUE)
                     {
                         double posX = j * Map.COLLISION_TILE_SIZE;
                         double posY = i * Map.COLLISION_TILE_SIZE;
-                        HealPlant plant = new HealPlant(posX, posY, purifyingPlantImg, eMng);
+
+                        Image img;
+                        img = new Image();
+                        img.Source = purifyingPlantImg;
+                        img.Width = 100;
+                        img.Height = 100;
+
+                        HealPlant plant = new HealPlant(posX, posY, img, eMng);
                     }
                 }
             }
