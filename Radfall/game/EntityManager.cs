@@ -119,22 +119,6 @@ namespace Radfall
                             if (attack1.IsActive && attack1.Attacker != being1)
                                 attack1.DoAttack(being1);
                         }
-                        if (e1 is Item item0 && e2 is Player player2)
-                        {
-                            //item0.Grabbed(player2);
-                        }
-                        else if (e2 is Item item1 && e1 is Player player3)
-                        {
-                            //item1.Grabbed(player3);
-                        }
-                        if (e1 is Poison poison0 && e2 is Player player4)
-                        {
-                            //Méthode à faire pour remplacer CheckEntities() dans Poison
-                        }
-                        else if (e2 is Poison poison1 && e1 is Player player5)
-                        {
-                            //Méthode à faire pour remplacer CheckEntities() dans Poison
-                        }
                         if (e1 is Item healPlant && e2 is Player player3)
                         {
                             healPlant.IsGrabbed(player3);
@@ -142,6 +126,14 @@ namespace Radfall
                         else if (e2 is Item healPlant1 && e1 is Player player4)
                         {
                             healPlant1.IsGrabbed(player4);
+                        }
+                        if (e1 is Poison poison0 && e2 is Player player5)
+                        {
+                            //Méthode à faire pour remplacer CheckEntities() dans Poison
+                        }
+                        else if (e2 is Poison poison1 && e1 is Player player6)
+                        {
+                            //Méthode à faire pour remplacer CheckEntities() dans Poison
                         }
                     }
                 }
