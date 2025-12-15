@@ -10,6 +10,7 @@ namespace Radfall.game
     internal class HealPlant : Item
     {
         public const int HEAL_AMOUNT = 20;
+        public const int MAP_VALUE = 4;
 
         public HealPlant(double x, double y, Image img, EntityManager entityManager) : base (x, y, img, entityManager)
         {
@@ -21,7 +22,12 @@ namespace Radfall.game
 
         public override void Grab(Player player)
         {
-            player.Heal(HealPlant.HEAL_AMOUNT);   
+            if (IsVisible)
+            {
+                player.Heal(HealPlant.HEAL_AMOUNT);
+                IsVisible = false;
+                TimeManager.AddTimer(RespawnTime, () => { IsVisible = true; });
+            }
         }
     }
 }
