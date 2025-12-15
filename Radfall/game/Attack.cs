@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Text;
@@ -17,7 +18,7 @@ namespace Radfall
         double invincibletime, double inactiveDuration, double activeDuration, double stunTime,double cooldownTime, double deplacementX, double deplacementY) : Entity(x, y, img, entityManager)
     {
         private int Damage { get; init; } = damage;
-        private Being Attacker { get; init; } = attacker;
+        public Being Attacker { get; init; } = attacker;
         private double KnockbackX { get; init; } = knockbackX;
         private double KnockbackY { get; init; } = knockbackY;
         private double InvincibleTime { get; init; } = invincibletime;
@@ -26,7 +27,7 @@ namespace Radfall
         private double StunTime { get; init; } = stunTime;
         private double CooldownTime { get; init; } = cooldownTime;
         private bool InCooldown { get; set; } = false;
-        private bool IsActive { get; set; } = false;
+        public bool IsActive { get; set; } = false;
         private double DeplacementX { get; init; } = deplacementX;
         private double DeplacementY { get; init; } = deplacementY;
         private bool IsFacingLeft { get; set; } = false;
@@ -76,25 +77,13 @@ namespace Radfall
         public override void Update(double dTime)
         {
             UpdateHitbox();
-            if (IsActive)
-                CheckEntities();
         }
-        private void CheckEntities()
+        public void DoAttack(Being target)
         {
-            foreach (var entity in entityManager.Entities)
-            {
-                if (entity is Being)
-                {
-                    if (Hitbox.IntersectsWith(entity.Hitbox) && entity != Attacker)
-                    {
-                        Being being = entity as Being;
-                        if (IsFacingLeft)
-                            being.TakeDamage(Damage, Attacker, x+img.Width, KnockbackX, KnockbackY, InvincibleTime, StunTime);
-                        else
-                            being.TakeDamage(Damage, Attacker, x, KnockbackX, KnockbackY, InvincibleTime, StunTime);
-                    }
-                }
-            }
+            if (IsFacingLeft)
+                target.TakeDamage(Damage, Attacker, x + img.Width, KnockbackX, KnockbackY, InvincibleTime, StunTime);
+            else
+                target.TakeDamage(Damage, Attacker, x, KnockbackX, KnockbackY, InvincibleTime, StunTime);
         }
     }
 }

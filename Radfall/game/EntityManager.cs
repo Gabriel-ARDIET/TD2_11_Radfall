@@ -1,4 +1,5 @@
-﻿using Radfall.map;
+﻿using Radfall.game;
+using Radfall.map;
 using System;
 using System.Collections.Generic;
 using System.Collections.Generic;
@@ -104,13 +105,31 @@ namespace Radfall
                         {
                             DoAttack(player1, monster1);
                         }
-                        if (e1 is Attack attack0 && e2 is Monster monster2)
+                        if (e1 is Attack attack0 && e2 is Being being0)
                         {
-                            
+                            if (attack0.IsActive && attack0.Attacker != being0)
+                                attack0.DoAttack(being0);
                         }
-                        else if (e2 is Attack attack1 && e1 is Monster monster3)
+                        else if (e2 is Attack attack1 && e1 is Being being1)
                         {
-                            //DoAttack(attack1, monster3);
+                            if (attack1.IsActive && attack1.Attacker != being1)
+                                attack1.DoAttack(being1);
+                        }
+                        if (e1 is Item item0 && e2 is Player player2)
+                        {
+                            //item0.Grabbed(player2);
+                        }
+                        else if (e2 is Item item1 && e1 is Player player3)
+                        {
+                            //item1.Grabbed(player3);
+                        }
+                        if (e1 is Poison poison0 && e2 is Player player4)
+                        {
+                            //Méthode à faire pour remplacer CheckEntities() dans Poison
+                        }
+                        else if (e2 is Poison poison1 && e1 is Player player5)
+                        {
+                            //Méthode à faire pour remplacer CheckEntities() dans Poison
                         }
                     }
                 }
