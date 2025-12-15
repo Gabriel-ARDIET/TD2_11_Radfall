@@ -8,26 +8,48 @@ using System.Windows.Media.Imaging;
 
 namespace Radfall.core
 {
+    /// <summary>
+    /// Contains everything useful for an animation.
+    /// </summary>
     internal class Animation
     {
+        const string DEFAULT_IMG_NAMING = "_";
 
-        public static string ImgNaming { get; set; } = "_";
+        /// <summary>
+        /// Symbols between the name of the image and the format.
+        /// </summary>
+        // Ex : name = "Player" ImgNaming = "_" => will load every Player_nb.png
+        public static string ImgNaming { get; set; } = DEFAULT_IMG_NAMING;
 
+        /// <summary>
+        /// Store all the frames
+        /// </summary>
         public BitmapImage[] Imgs {  get; set; }
 
+        /// <summary>
+        /// Number of frame
+        /// </summary>
         public uint NbImgs { get; private set; }
 
+        /// <summary>
+        /// Time between each frames
+        /// </summary>
         public double FrameInterval { get; set; }
 
+        /// <summary>
+        /// Load automaticcely all the images.
+        /// </summary>
+        /// <param name="pathImg"> name of the image with the pass without the format (.png)</param>
         public Animation(string pathImg, uint NbImgs, double FrameInterval) {
-            // Setup les attributs
+
+            // Setup attributes
             this.NbImgs = NbImgs;
             this.FrameInterval = FrameInterval;
 
-            // Initialise le tableau des  bitmaps
+            // Initialize the bitmap array
             Imgs = new BitmapImage[NbImgs];
 
-            // Load toutes les images pour l'animation
+            // Load every images
             for (int i = 0; i < NbImgs; i++) {
                 Imgs[i] = RessourceManager.LoadBitmap(pathImg + ImgNaming + i);
             }
