@@ -52,15 +52,12 @@ namespace Radfall.game
             Health = Math.Max(Health, 0);
 
             TakeKnockback(attackX, knockbackX, knockbackY);
-            VelocityX += knockbackX * direction;
-            VelocityY -= knockbackY;
-
             StartInvincibility(invicibilityTime);
             StartStunTime(stunTime);
 
             if (Health <= 0)
             {
-                //Die();
+                Die();
             }
             Debug.WriteLine(Health);
         }

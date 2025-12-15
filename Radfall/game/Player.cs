@@ -84,5 +84,9 @@ namespace Radfall
                 Poison = 0;
             }
         }
+        internal override void Die()
+        {
+            Debug.WriteLine("Mort mskn");
+        }
     }
 }
