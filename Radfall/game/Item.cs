@@ -9,7 +9,7 @@ namespace Radfall.game
 {
     internal class Item : Entity
     {
-        public Item(double x, double y, Image img): base(x, y, img)
+        public Item(double x, double y, Image img, EntityManager entityManager): base(x, y, img, entityManager)
         {
             this.x = x;
             this.y = y;
