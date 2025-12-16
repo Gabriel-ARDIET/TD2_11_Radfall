@@ -17,6 +17,7 @@ namespace Radfall
         public int Accoutumance { get; set; }
         public bool IsFacingLeft { get; set; } = false;
         private Attack baseAttack;
+        private Attack dash;
         public Player(double x, double y, Image img, EntityManager entityManager, int maxHealth, double speed, double jumpForce,bool isFlying)
             : base(x, y, img, entityManager, maxHealth, speed, jumpForce, isFlying)
         {
@@ -26,6 +27,7 @@ namespace Radfall
             JumpForce = jumpForce;
             IsFlying = isFlying;
             baseAttack = new Attack(x, y, RessourceManager.LoadImage("Attack.png"), 10, this, entityManager, 300, 500, 1, 0, 0.5, 0.5, 1, 0, 0);
+            dash = new Attack(x,y, RessourceManager.LoadImage("Attack.png"), 0,this,entityManager,0,0,0,0,0,0,2,1000,0);
         }
 
         public void MoveLeft()
@@ -58,8 +60,13 @@ namespace Radfall
         {
             if (!IsStunned)
             {
-                currentAttack = baseAttack;
+                currentAttack = dash;
                 currentAttack.Init(x,y,IsFacingLeft);
+                TimeManager.AddTimer(0.2, () =>
+                {
+                    VelocityX = 0;
+                    VelocityY = 0;
+                });
             }
         }
         public override void Update(double dTime)

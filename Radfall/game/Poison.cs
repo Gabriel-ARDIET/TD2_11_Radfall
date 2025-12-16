@@ -24,25 +24,14 @@ namespace Radfall.game
         public override void Update(double dTime)
         {
             timer += dTime;
+        }
+
+        internal void CheckEntities(Player player)
+        {
             if (timer >= POISON_INTERVAL)
             {
                 timer = 0;
-                CheckEntities();
-            }
-        }
-
-        internal void CheckEntities()
-        {
-            foreach (var entity in entityManager.Entities)
-            {
-                if (entity is Player)
-                {
-                    if (Hitbox.IntersectsWith(entity.Hitbox))
-                    {
-                        Player player = entity as Player;
-                        player.TakePoison(Amount);
-                    }
-                }
+                player.TakePoison(Amount);
             }
         }
     }
