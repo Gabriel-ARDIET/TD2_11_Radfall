@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -11,7 +12,7 @@ namespace Radfall
 {
     class Monster : Being
     {
-        private Entity Target { set; get; }
+        public Entity Target { set; get; }
         public int AttackDamage { get; set; }
         private double directionX, directionY;
         public Monster(double x, double y, Image img, EntityManager entityManager, int maxHealth, double speed, double jumpForce,
