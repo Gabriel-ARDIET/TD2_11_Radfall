@@ -20,10 +20,6 @@ namespace Radfall
         public const double IMG_SIZE = 1000;
         public const int COLLISION_TILE_SIZE = 50;
 
-        private const int MAP_Z_INDEX = 1;
-
-        private const int ITEM_Z_INDEX = 0;
-
         private Drawable[,] foreground = new Drawable[HEIGHT_SIZE, WIDTH_SIZE];
         private Drawable[,] background = new Drawable[HEIGHT_SIZE, WIDTH_SIZE];
 
@@ -46,7 +42,7 @@ namespace Radfall
                                                     foregroundTile);
 
                     canva.Children.Add(foreground[i, j].img);
-                    Canvas.SetZIndex(foreground[i, j].img, MAP_Z_INDEX);
+                    Canvas.SetZIndex(foreground[i, j].img, Renderer.LAYER_FOREGROUND);
 
                     Image backgroundTile = new Image
                     {
@@ -60,7 +56,7 @@ namespace Radfall
                                                     backgroundTile);
 
                     canva.Children.Add(background[i, j].img);
-                    Canvas.SetZIndex(background[i, j].img, MAP_Z_INDEX-1);
+                    Canvas.SetZIndex(background[i, j].img, Renderer.LAYER_BACKGROUND);
 
                     // Item
                     InitItem(canva, eMng);
