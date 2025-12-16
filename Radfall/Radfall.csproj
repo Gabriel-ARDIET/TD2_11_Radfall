@@ -9,11 +9,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="assets\fonts\Angelic Serif.ttf" />
+    <None Remove="assets\fonts\AngelicWar.ttf" />
+    <None Remove="assets\fonts\anirm___.ttf" />
     <None Remove="assets\test.png" />
+    <None Remove="assets\ui\Bar.png" />
+    <None Remove="assets\ui\Button.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="assets\fonts\Angelic Serif.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\fonts\AngelicWar.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\fonts\anirm___.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="assets\test.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\ui\Bar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\ui\Button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
