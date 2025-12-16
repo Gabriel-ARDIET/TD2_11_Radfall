@@ -48,7 +48,28 @@ namespace Radfall
             bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
 
             bitmapImage.EndInit();
-            
+
+            return bitmapImage;
+        }
+
+        public static BitmapImage LoadStaticBitmap(string filename)
+        {
+            BitmapImage bitmapImage;
+
+            bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.UriSource = new Uri(AssetsDirectory + filename, UriKind.Relative);
+
+            // Charger l'image en mémoire
+            // Garde l'image en mémoire pour pouvoir y accéder rapidement
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+
+            bitmapImage.EndInit();
+
+            // Le bitmap n'est plus surveillé
+            // WPF ne verifie plus si l'objet a changé ou si il est présent
+            bitmapImage.Freeze();
+
             return bitmapImage;
         }
     }
