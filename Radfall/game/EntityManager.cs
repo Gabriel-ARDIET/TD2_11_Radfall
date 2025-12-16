@@ -15,8 +15,11 @@ namespace Radfall
     internal class EntityManager
     {
         private List<Entity> entities = new List<Entity>();
+
         public IReadOnlyList<Entity> Entities => entities;
+
         private Canvas canvas;
+
         public EntityManager(Canvas canvas)
         {
             this.canvas = canvas;
@@ -69,7 +72,7 @@ namespace Radfall
                 }
             }
 
-            CheckCollisions();
+            CheckCollisionsBetweenEntities();
         }
 
         public void RenderAll(Renderer renderer)
@@ -85,11 +88,10 @@ namespace Radfall
             }
         }
 
-        private void CheckCollisions()
+        private void CheckCollisionsBetweenEntities()
         {
             for (int i = 0; i < entities.Count; i++)
-            {
-                
+            {   
 
                 // Collision between entity
                 for (int j = i + 1; j < entities.Count; j++)
@@ -125,18 +127,19 @@ namespace Radfall
                         {
                             healPlant1.IsGrabbed(player4);
                         }
-                        if (e1 is Poison poison0 && e2 is Player player5)
-                        {
-                            //Méthode à faire pour remplacer CheckEntities() dans Poison
-                        }
-                        else if (e2 is Poison poison1 && e1 is Player player6)
-                        {
-                            //Méthode à faire pour remplacer CheckEntities() dans Poison
-                        }
+                        //if (e1 is Poison poison0 && e2 is Player player5)
+                        //{
+                        //    //Méthode à faire pour remplacer CheckEntities() dans Poison
+                        //}
+                        //else if (e2 is Poison poison1 && e1 is Player player6)
+                        //{
+                        //    //Méthode à faire pour remplacer CheckEntities() dans Poison
+                        //}
                     }
                 }
             }
         }
+
         private void DoAttack(Player player, Monster monster)
         {
             player.TakeDamage(monster.AttackDamage, monster, monster.x, 300,500, 1, 0.5);
