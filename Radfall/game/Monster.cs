@@ -31,7 +31,6 @@ namespace Radfall
         public override void Update(double dTime)
         {
             base.Update(dTime);
-            Move();
         }
         public void Move()
         {
