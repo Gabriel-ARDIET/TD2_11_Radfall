@@ -14,11 +14,11 @@ namespace Radfall
 {
     internal class Map
     {
-        private const uint HEIGHT_SIZE = 3;
-        private const uint WIDTH_SIZE = 3;
+        private const uint HEIGHT_SIZE = 10;
+        private const uint WIDTH_SIZE = 10;
 
         public const double IMG_SIZE = 1000;
-        public const int COLLISION_TILE_SIZE = 100;
+        public const int COLLISION_TILE_SIZE = 50;
 
         private const int MAP_Z_INDEX = 1;
 
@@ -26,8 +26,27 @@ namespace Radfall
 
         private Tile[,] tiles = new Tile[HEIGHT_SIZE, WIDTH_SIZE];
 
-        public Map()
+        public Map(Canvas canva)
         {
+            // Pour chaque Tile
+            for (int i = 0; i < HEIGHT_SIZE; i++)
+            {
+                for (int j = 0; j < WIDTH_SIZE; j++)
+                {
+                    Image tile = RessourceManager.LoadImage("map/tiles/foreground/MapForeground_" + GetIndice(i, j) + ".png");
+                    tile.Width = IMG_SIZE;
+                    tile.Height = IMG_SIZE;
+
+                    // Initialisation de chaque tile
+                    tiles[i, j] = new Tile(i * IMG_SIZE,
+                                           j * IMG_SIZE,
+                                           tile);
+
+                    // Ajoute au canva en mettant le z-index
+                    canva.Children.Add(tiles[i, j].img);
+                    Canvas.SetZIndex(tiles[i, j].img, MAP_Z_INDEX);
+                }
+            }
         }
 
         // Krita me fragmente les images en mettant un indice 1, 2, 3 etc...
@@ -39,21 +58,7 @@ namespace Radfall
 
         public void Init(Canvas canva, EntityManager eMng)
         {
-            // Pour chaque Tile
-            for (int i  = 0; i < HEIGHT_SIZE; i++)
-            {
-                for (int j = 0; j < WIDTH_SIZE; j++)
-                {
-                    // Initialisation de chaque tile
-                    tiles[i, j] = new Tile(i * IMG_SIZE, 
-                                           j * IMG_SIZE, 
-                                           RessourceManager.LoadImage("Radfall_map/Map_" + GetIndice(i,j) + ".png"));
-                    
-                    // Ajoute au canva en mettant le z-index
-                    canva.Children.Add(tiles[i, j].img);
-                    Canvas.SetZIndex(tiles[i, j].img, MAP_Z_INDEX);
-                }
-            }
+            
 
             // Initialisations des items sur la map
             BitmapImage healPlantImg = RessourceManager.LoadBitmap("HealPlant.png");
