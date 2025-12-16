@@ -28,8 +28,8 @@ namespace Radfall
         private double CooldownTime { get; init; } = cooldownTime;
         private bool InCooldown { get; set; } = false;
         public bool IsActive { get; set; } = false;
-        private double DeplacementX { get; init; } = deplacementX;
-        private double DeplacementY { get; init; } = deplacementY;
+        public double DeplacementX { get; init; } = deplacementX;
+        public double DeplacementY { get; init; } = deplacementY;
         private bool IsFacingLeft { get; set; } = false;
 
         public void Init(double x, double y, bool isFacingLeft)
