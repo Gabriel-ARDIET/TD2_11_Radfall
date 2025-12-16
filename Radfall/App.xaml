@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:Radfall"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="AngelicWar">/assets/fonts/#Angelic War</FontFamily>
+        <FontFamily x:Key="AngelicSerif">/assets/fonts/#Angelic Serif</FontFamily>
+        <FontFamily x:Key="Aniron">/assets/fonts/#Aniron</FontFamily>
     </Application.Resources>
 </Application>
