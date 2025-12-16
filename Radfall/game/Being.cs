@@ -38,8 +38,11 @@ namespace Radfall.game
         {
             if (!IsFlying || IsStunned)
             {
-                VelocityY += 50;
-                AccelerationY += GRAVITY * dTime;
+                if (VelocityY < 750)
+                {
+                    VelocityY += 10;
+                    AccelerationY += GRAVITY * dTime;
+                }
             }
         }
 

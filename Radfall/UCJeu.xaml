@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
 
-    <Canvas x:Name="canva">
+    <Canvas x:Name="canva" Background="#4C7B7D">
             
     </Canvas>
 </UserControl>

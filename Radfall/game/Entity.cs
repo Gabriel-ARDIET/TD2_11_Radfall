@@ -49,12 +49,12 @@ namespace Radfall
             UpdateHitbox();
             Animation.Update();
         }
-        public void InitializeRenderer(Canvas canvas, int zIndex = 1)
+        public void InitializeRenderer(Canvas canvas)
         {
             if (!canvas.Children.Contains(img))
             {
                 canvas.Children.Add(img);
-                Canvas.SetZIndex(img, zIndex);
+                Canvas.SetZIndex(img, Renderer.LAYER_ENTITY);
             }
         }
         internal void UpdateHitbox()

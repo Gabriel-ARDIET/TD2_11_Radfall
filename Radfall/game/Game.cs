@@ -15,19 +15,12 @@ namespace Radfall
     public class Game
     {
         private static DispatcherTimer minuterie;
-
         private Canvas canva;
-
         private Renderer renderer;
-
         private EntityManager entityManager;
-
         private Map map;
-
-        private PlayerUI playerUI;
-
+        private GameUI gameUI;
         private Player player;
-
         private Monster monster;
 
         public enum Action
@@ -49,14 +42,13 @@ namespace Radfall
 
             RessourceManager.AssetsDirectory = "../../../assets/";
 
-            player = new Player(1000, 2500, RessourceManager.LoadImage("Perso.png"),entityManager,100,500,1500,false);
+            player = new Player(1000, 2500, RessourceManager.LoadImage("Perso.png"),entityManager,100,800,1000,false);
             entityManager.Add(player);
 
             monster = new Monster(300, 300, RessourceManager.LoadImage("chauve-souris.png"), entityManager, 100,200,0,true,player,10);
             entityManager.Add(monster);
 
-            map = new Map(canva);
-            map.Init(canva, entityManager);
+            map = new Map(canva, entityManager);
 
             // Setup les Input
             InputManager.BindKey(Action.Left, Key.Q);
@@ -65,7 +57,7 @@ namespace Radfall
             InputManager.BindKey(Action.BaseAttack, Key.E);
 
             // Setup ui
-            playerUI = new PlayerUI(player, canva);
+            gameUI = new GameUI(player, canva);
         }
 
         private void HandleInput()
@@ -96,7 +88,7 @@ namespace Radfall
 
             entityManager.UpdateAll(TimeManager.DeltaTime);
 
-            playerUI.Update();
+            gameUI.Update();
         }
 
         private void Render()

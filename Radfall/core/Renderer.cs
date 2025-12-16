@@ -12,6 +12,12 @@ namespace Radfall
 {
     internal class Renderer
     {
+
+        public const short LAYER_BACKGROUND = 1;
+        public const short LAYER_ENTITY = 2;
+        public const short LAYER_FOREGROUND = 3;
+        public const short LAYER_UI = 4;
+
         private Canvas renderTarget;
 
         public Camera camera = new Camera();
@@ -22,24 +28,13 @@ namespace Radfall
         // Ajouter des éléments au render target
         public void Draw(Drawable obj)
         {
-            // On check d'abord si l'image est en collision avec le rect
-            // de la caméra pour voir si on affiche ou pas l'image
-
-            //if (camera.x + camera.Width >= obj.x &&
-            //    camera.x <= obj.x + obj.width &&
-            //    camera.y + camera.Height >= obj.y &&
-            //    camera.y <= obj.y + obj.height)
-            bool a = camera.x + camera.Width >= obj.x;
-            bool b = camera.x <= obj.x + obj.width;
-            bool c = camera.y + camera.Height >= obj.y;
-            bool d = camera.y <= obj.y + obj.height;
-
-            if (a && b && c && d)
+            if (camera.x + camera.Width >= obj.x &&
+                camera.x <= obj.x + obj.width &&
+                camera.y + camera.Height >= obj.y &&
+                camera.y <= obj.y + obj.height)
             {
                 obj.img.Visibility = System.Windows.Visibility.Visible;
 
-                // Mettre l'image a la bonne position en fonction de la camera
-                // Par contre jsp pk vs community me dit de mettre Canvas au lieu de l'instance canva
                 Canvas.SetLeft(obj.img, obj.x - camera.x);
                 Canvas.SetTop(obj.img, obj.y - camera.y);
             }
@@ -47,6 +42,6 @@ namespace Radfall
             {
                 obj.img.Visibility = System.Windows.Visibility.Hidden;
             }
-        } 
+        }
     }
 }

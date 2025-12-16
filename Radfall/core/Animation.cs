@@ -51,7 +51,7 @@ namespace Radfall.core
 
             // Load every images
             for (int i = 0; i < NbImgs; i++) {
-                Imgs[i] = RessourceManager.LoadBitmap(pathImg + ImgNaming + i);
+                Imgs[i] = RessourceManager.LoadBitmap(pathImg + ImgNaming + i + ".png");
             }
         }  
     }
