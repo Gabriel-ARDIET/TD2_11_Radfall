@@ -28,6 +28,20 @@ namespace Radfall
             IsFlying = isFlying;
             baseAttack = new Attack(x, y, RessourceManager.LoadImage("Attack.png"), 10, this, entityManager, 300, 500, 1, 0, 0.5, 0.5, 1, 0, 0);
             dash = new Attack(x,y, RessourceManager.LoadImage("Attack.png"), 0,this,entityManager,0,0,0,0,0,0,2,1000,0);
+            Animation.Add(
+                    animationName: "Idle",
+                    pathImg: "BlueWizard/2BlueWizardIdle/Chara - BlueIdle",
+                    nbFrame: 20,
+                    animationSpeed: 0.2
+            );
+            Animation.Add(
+                    animationName: "Walk",
+                    pathImg: "BlueWizard/2BlueWizardWalk/Chara_BlueWalk",
+                    nbFrame: 20,
+                    animationSpeed: 0.2
+            );
+
+            Animation.SetCurrent("Idle");
         }
 
         public void MoveLeft()
@@ -36,6 +50,7 @@ namespace Radfall
             {
                 x -= Speed * TimeManager.DeltaTime;
                 IsFacingLeft = true;
+                Animation.SetCurrent("Walk");
             }
         }
 

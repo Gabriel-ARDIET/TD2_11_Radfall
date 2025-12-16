@@ -10,7 +10,7 @@ namespace Radfall.game
 {
     internal class HealPlant : Item
     {
-        public const int HEAL_AMOUNT = 20;
+        public const int HEAL_AMOUNT = 10;
         public const int MAP_VALUE = 4;
 
         public HealPlant(double x, double y, Image img, EntityManager entityManager) : base (x, y, img, entityManager)
@@ -19,6 +19,13 @@ namespace Radfall.game
             this.x = x;
             this.y = y;
             this.img = img;
+            Animation.Add(
+                animationName: "Default",
+                pathImg: "animation/HealPlant/JumpPlant",
+                nbFrame: 20,
+                animationSpeed: 0.2
+            );
+            Animation.SetCurrent("Default");
         }
 
         public override void IsGrabbed(Player player)
