@@ -5,33 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radfall"
         mc:Ignorable="d"
-        Title="Options" Height="450" Width="800">
+        MinHeight="300" MinWidth="200"
+        Title="Options" Height="450" Width="500" Topmost="True">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="365*"/>
+            <RowDefinition Height="69*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="175*"/>
             <ColumnDefinition Width="200*"/>
             <ColumnDefinition Width="200*"/>
             <ColumnDefinition Width="175*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="labDroite" Content="Droite :" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" Height="30" Width="70" Margin="0,66,0,0"
+        <Label x:Name="labDroite" Content="Droite :" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="70" Margin="0,66,0,0"
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label x:Name="labGauche" Content="Gauche :" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" Height="30" Width="70" Margin="0,126,0,0"
+        <Label x:Name="labGauche" Content="Gauche :" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="70" Margin="0,126,0,0"
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label x:Name="labSaut" Content="Saut :" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" Height="30" Width="70" Margin="0,186,0,0"
+        <Label x:Name="labSaut" Content="Saut :" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="70" Margin="0,186,0,0"
             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-        <TextBox Name="txtDroite" Text="Entrez une touche" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="2" Height="30" Width="100"
+        <TextBox Name="txtDroite" Text="Entrez une touche" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" Height="30" Width="100"
             Margin="0,66,0,0" TextAlignment="Center" TextWrapping="Wrap" Background="LightGray" PreviewKeyDown="KeyCapture" GotFocus="txtGotFocus"/>
-                   
-        <TextBox x:Name="txtGauche" Text="Entrez une touche" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="2" Height="30" Width="100"
+
+        <TextBox x:Name="txtGauche" Text="Entrez une touche" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" Height="30" Width="100"
             Margin="0,126,0,0" TextAlignment="Center" TextWrapping="Wrap" Background="LightGray" PreviewKeyDown="KeyCapture" GotFocus="txtGotFocus"/>
-        
-        <TextBox x:Name="txtSaut" Text="Entrez une touche" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="2" Height="30" Width="100"
+
+        <TextBox x:Name="txtSaut" Text="Entrez une touche" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" Height="30" Width="100"
             Margin="0,186,0,0" TextAlignment="Center" TextWrapping="Wrap" Background="LightGray" PreviewKeyDown="KeyCapture" GotFocus="txtGotFocus"/>
-        
-        
-        <Button x:Name="butValider" Grid.Column="1" Content="Valider" Width="75" Height="25" HorizontalAlignment="Center" Margin="0,374,0,0" VerticalAlignment="Top" Click="butValider_Click"/>
-        <Button x:Name="butAnnuler" Grid.Column="2" Content="Annuler" Width="75" Height="25" HorizontalAlignment="Center" Margin="0,374,0,0" VerticalAlignment="Top" Click="butAnnuler_Click"/>
+
+        <Label x:Name="labAttaquer" Content="Attaquer :" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="2" Height="30" Width="70" Margin="0,66,0,0"
+               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="labDash" Content="Dash :" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="2" Height="30" Width="70" Margin="0,126,0,0"
+               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="labNoClip" Content="NoClip :" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="2" Height="30" Width="70" Margin="0,186,0,0"
+               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <TextBox Name="txtAttaquer" Text="Entrez une touche" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="3" Height="30" Width="100"
+            Margin="0,66,0,0" TextAlignment="Center" TextWrapping="Wrap" Background="LightGray" PreviewKeyDown="KeyCapture" GotFocus="txtGotFocus"/>
+
+        <TextBox x:Name="txtDash" Text="Entrez une touche" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="3" Height="30" Width="100"
+            Margin="0,126,0,0" TextAlignment="Center" TextWrapping="Wrap" Background="LightGray" PreviewKeyDown="KeyCapture" GotFocus="txtGotFocus"/>
+
+        <TextBox x:Name="txtNoClip" Text="Entrez une touche" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="3" Height="30" Width="100"
+            Margin="0,186,0,0" TextAlignment="Center" TextWrapping="Wrap" Background="LightGray" PreviewKeyDown="KeyCapture" GotFocus="txtGotFocus"/>
+
+        <Button x:Name="butValider" Grid.Column="1" Content="Valider" Width="75" Height="25" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top" Click="butValider_Click" Grid.Row="1"/>
+        <Button x:Name="butAnnuler" Grid.Column="2" Content="Annuler" Width="75" Height="25" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top" Click="butAnnuler_Click" Grid.Row="1"/>
 
     </Grid>
 </Window>

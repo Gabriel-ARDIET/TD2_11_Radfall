@@ -35,7 +35,9 @@ namespace Radfall
             Left,
             Right,
             Jump,
-            BaseAttack
+            BaseAttack,
+            Dash,
+            NoClip
         }
 
         public Game(Canvas canva) { 
@@ -63,6 +65,8 @@ namespace Radfall
             InputManager.BindKey(Action.Right, Key.D);
             InputManager.BindKey(Action.Jump, Key.Space);
             InputManager.BindKey(Action.BaseAttack, Key.E);
+            InputManager.BindKey(Action.Dash, Key.LeftShift);
+            InputManager.BindKey(Action.NoClip, Key.F3);
 
             // Setup ui
             playerUI = new PlayerUI(player, canva);
@@ -85,6 +89,14 @@ namespace Radfall
             if (InputManager.IsActionActive(Action.BaseAttack))
             {
                 player.BaseAttack();
+            }
+            if(InputManager.IsActionActive(Action.Dash))
+            {
+                player.Dash();
+            }
+            if (InputManager.IsActionActive(Action.NoClip))
+            {
+                player.ActivateNoClip();
             }
         }
 

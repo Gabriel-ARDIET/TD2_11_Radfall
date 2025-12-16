@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -15,9 +16,10 @@ namespace Radfall
         public int MaxPoison {  get; set; }
         public int Poison { get; set; }
         public int Accoutumance { get; set; }
-        public bool IsFacingLeft { get; set; } = false;
         private Attack baseAttack;
-        private Attack dash;
+        private Dash dash;
+
+        private bool NoClip = false;
         public Player(double x, double y, Image img, EntityManager entityManager, int maxHealth, double speed, double jumpForce,bool isFlying)
             : base(x, y, img, entityManager, maxHealth, speed, jumpForce, isFlying)
         {
@@ -26,8 +28,8 @@ namespace Radfall
             Speed = speed;
             JumpForce = jumpForce;
             IsFlying = isFlying;
-            baseAttack = new Attack(x, y, RessourceManager.LoadImage("Attack.png"), 10, this, entityManager, 300, 500, 1, 0, 0.5, 0.5, 1, 0, 0);
-            dash = new Attack(x,y, RessourceManager.LoadImage("Attack.png"), 0,this,entityManager,0,0,0,0,0,0,2,1000,0);
+            baseAttack = new Attack(0, 0, RessourceManager.LoadImage("Attack.png"),entityManager,10, this,300, 500, 1, 0, 0.5, 0.5, 1);
+            dash = new Dash(this, 0.2, 1.5, 750, 0);
         }
 
         public void MoveLeft()
@@ -60,14 +62,14 @@ namespace Radfall
         {
             if (!IsStunned)
             {
-                currentAttack = dash;
-                currentAttack.Init(x,y,IsFacingLeft);
-                TimeManager.AddTimer(0.2, () =>
-                {
-                    VelocityX = 0;
-                    VelocityY = 0;
-                });
+                currentAttack = baseAttack;
+                currentAttack.Init(x,y);
             }
+        }
+        public void Dash()
+        {
+            if (!IsStunned)
+                dash.DoDash();
         }
         public override void Update(double dTime)
         {
@@ -76,6 +78,12 @@ namespace Radfall
                 currentAttack.Update(dTime);
             }
             base.Update(dTime);
+            if (NoClip)
+            {
+                IsFlying = true;
+                IsInvicible = true;
+                IsSolid = false;
+            }
         }
 
         internal void TakePoison(int damage)
@@ -94,6 +102,19 @@ namespace Radfall
         internal override void Die()
         {
             Debug.WriteLine("Mort mskn");
+        }
+
+        internal void ActivateNoClip()
+        {
+            NoClip = !NoClip;
+            Speed = 3 * BaseSpeed;
+            if (!NoClip)
+            {
+                IsFlying = false;
+                IsInvicible = false;
+                IsSolid = true;
+                Speed = BaseSpeed;
+            }
         }
     }
 }
