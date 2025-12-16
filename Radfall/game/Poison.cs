@@ -26,7 +26,7 @@ namespace Radfall.game
             timer += dTime;
         }
 
-        internal void CheckEntities(Player player)
+        internal void InflictPoison(Player player)
         {
             if (timer >= POISON_INTERVAL)
             {
