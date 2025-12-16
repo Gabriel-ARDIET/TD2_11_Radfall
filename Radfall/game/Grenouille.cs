@@ -15,7 +15,14 @@ namespace Radfall.game
             double speed, double jumpForce, bool isFlying, Entity target, int attackDamage)
             : base(x, y, img, entityManager, maxHealth, speed, jumpForce, isFlying, target, attackDamage)
         {
-
+            Animation.Add(
+                   animationName: "Idle",
+                   pathImg: "SlimeOrange/SlimeOrange",
+                   nbFrame: 30,
+                   animationSpeed: 0.1
+            );
+            Animation.SetCurrent("Idle");
+            img.Width = 150;
         }
         public override void Update(double dTime)
         {
