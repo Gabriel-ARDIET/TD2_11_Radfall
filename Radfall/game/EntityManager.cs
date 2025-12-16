@@ -15,8 +15,7 @@ namespace Radfall
     internal class EntityManager
     {
         private List<Entity> entities = new List<Entity>();
-
-        public IReadOnlyList<Entity> Entities => entities;
+        private List<Entity> toRemove = new List<Entity>();
 
         private Canvas canvas;
 
@@ -33,9 +32,7 @@ namespace Radfall
 
         public void Remove(Entity entity)
         {
-            entities.Remove(entity);
-            if (canvas.Children.Contains(entity.img))
-                canvas.Children.Remove(entity.img);
+            toRemove.Add(entity);
         }
 
         public void UpdateAll(double dTime)
@@ -43,9 +40,7 @@ namespace Radfall
             int index = 0;
             foreach (Entity entity in entities)
             {
-                index++;
                 entity.Update(dTime);
-
                 // Update des positions et check des collisions
                 if (entity.IsSolid)
                 {
@@ -74,7 +69,16 @@ namespace Radfall
                 }
 
                 CheckCollisionsBetweenEntities(entity,index);
+                index++;
             }
+            // On attend la fin du parcours du entities pour y supprimer les éléments
+            foreach (Entity garbage in toRemove)
+            {
+                if (canvas.Children.Contains(garbage.img))
+                    canvas.Children.Remove(garbage.img);
+                entities.Remove(garbage);
+            }
+            toRemove.Clear();
         }
 
         public void RenderAll(Renderer renderer)
@@ -128,13 +132,9 @@ namespace Radfall
                         case (Poison po, Player p):
                             po.InflictPoison(p);
                             break;
+                    }
                 }
             }
-        }
-
-        private void DoAttack(Player player, Monster monster)
-        {
-            player.TakeDamage(monster.AttackDamage, monster, monster.x, 300,500, 1, 0.5);
         }
     }
 }
