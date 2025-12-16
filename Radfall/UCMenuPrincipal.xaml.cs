@@ -37,5 +37,10 @@ namespace Radfall
                 }
             }
         }
+
+        private void butCredit_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
     }
 }

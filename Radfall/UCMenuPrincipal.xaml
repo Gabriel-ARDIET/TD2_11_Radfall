@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:Radfall"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
+    <UserControl.Resources>
+        <FontFamily x:Key="LabelFontFamily1">/fonts/#Angelic War</FontFamily>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="160*"/>
@@ -15,12 +18,65 @@
             <RowDefinition Height="56*"/>
         </Grid.RowDefinitions>
         <Label Name="labTitre" Content="Radfall" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" 
-               FontFamily="Algerian" FontSize="144" Background="Transparent" FontWeight="Bold" Foreground="White" Grid.RowSpan="4"/>
-        <Button x:Name="butJouer" Content="Jouer" Height="74" Width="350" HorizontalAlignment="Center" 
-                VerticalAlignment="Center" FontSize="36" FontFamily="Arial Black" Grid.Row="1"/>
-        <Button x:Name="butOption" Content="Options" Width="350" Height="76" HorizontalAlignment="Center" 
-                VerticalAlignment="Center" FontSize="36" FontFamily="Arial Black" Grid.Row="2" Click="butOption_Click"/>
-        <Button x:Name="butCredit" Content="Crédits" Width="350" Height="76" HorizontalAlignment="Center" 
-                VerticalAlignment="Center" FontSize="36" FontFamily="Arial Black" Grid.Row="3"/>
+               FontFamily="{DynamicResource Aniron}" FontSize="200" Background="Transparent" FontWeight="Bold" Foreground="White" Grid.RowSpan="4"/>
+        <Button x:Name="butJouer"
+                Height="150" 
+                Width="500" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                FontSize="36" 
+                FontFamily="{DynamicResource AngelicSerif}" 
+                Grid.Row="1"
+                Background="Transparent"
+                BorderThickness="0">
+            <Grid>
+                <Image Source="/assets/ui/Bar.png" Stretch="Fill"/>
+                <TextBlock Text="Jouer"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="36"
+                           FontFamily="Arial Black"/>
+            </Grid>
+        </Button>
+        <Button x:Name="butOption" 
+                Width="500" 
+                Height="150" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                FontSize="36" 
+                FontFamily="Arial Black" 
+                Grid.Row="2" 
+                Click="butOption_Click"
+                Background="Transparent"
+                BorderThickness="0">
+            <Grid>
+                <Image Source="/assets/ui/Button.png" Stretch="Fill"/>
+                <TextBlock Text="Options"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="36"
+                           FontFamily="Arial Black"/>
+            </Grid>
+        </Button>
+        <Button x:Name="butCredit" 
+                Width="500" 
+                Height="150" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                FontSize="36" 
+                FontFamily="Arial Black" 
+                Grid.Row="3"
+                Background="Transparent"
+                BorderThickness="0">
+            <Grid>
+                <Image Source="/assets/ui/Button.png" Stretch="Fill"/>
+                <TextBlock Text="Crédits"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="36"
+                   FontFamily="Arial Black"
+                   />
+            </Grid>
+        </Button>
     </Grid>
 </UserControl>
