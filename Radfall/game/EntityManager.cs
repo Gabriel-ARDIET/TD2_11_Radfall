@@ -15,8 +15,7 @@ namespace Radfall
     internal class EntityManager
     {
         private List<Entity> entities = new List<Entity>();
-
-        public IReadOnlyList<Entity> Entities => entities;
+        private List<Entity> toRemove = new List<Entity>();
 
         private Canvas canvas;
 
@@ -33,9 +32,7 @@ namespace Radfall
 
         public void Remove(Entity entity)
         {
-            entities.Remove(entity);
-            if (canvas.Children.Contains(entity.img))
-                canvas.Children.Remove(entity.img);
+            toRemove.Add(entity);
         }
 
         public void UpdateAll(double dTime)
@@ -43,9 +40,7 @@ namespace Radfall
             int index = 0;
             foreach (Entity entity in entities)
             {
-                index++;
                 entity.Update(dTime);
-
                 // Update des positions et check des collisions
                 if (entity.IsSolid)
                 {
@@ -74,7 +69,16 @@ namespace Radfall
                 }
 
                 CheckCollisionsBetweenEntities(entity,index);
+                index++;
             }
+            // On attend la fin du parcours du entities pour y supprimer les éléments
+            foreach (Entity garbage in toRemove)
+            {
+                if (canvas.Children.Contains(garbage.img))
+                    canvas.Children.Remove(garbage.img);
+                entities.Remove(garbage);
+            }
+            toRemove.Clear();
         }
 
         public void RenderAll(Renderer renderer)
@@ -99,47 +103,38 @@ namespace Radfall
 
                 if (e1.Hitbox.IntersectsWith(e2.Hitbox))
                 {
-                    if (e1 is Monster monster0 && e2 is Player player0)
+                    switch (e1, e2)
                     {
-                        DoAttack(player0, monster0);
+                        case (Monster m, Player p):
+                            m.CollisionAttack(p);
+                            break;
+                        case (Player p, Monster m):
+                            m.CollisionAttack(p);
+                            break;
+
+                        case (Attack a, Being b) when a.IsActive && a.Attacker != b:
+                            a.DoAttack(b);
+                            break;
+                        case (Being b, Attack a) when a.IsActive && a.Attacker != b:
+                            a.DoAttack(b);
+                            break;
+
+                        case (Item it, Player p):
+                            it.IsGrabbed(p);
+                            break;
+                        case (Player p, Item it):
+                            it.IsGrabbed(p);
+                            break;
+
+                        case (Player p, Poison po):
+                            po.InflictPoison(p);
+                            break;
+                        case (Poison po, Player p):
+                            po.InflictPoison(p);
+                            break;
                     }
-                    else if (e2 is Monster monster1 && e1 is Player player1)
-                    {
-                        DoAttack(player1, monster1);
-                    }
-                    else if (e1 is Attack attack0 && e2 is Being being0)
-                    {
-                        if (attack0.IsActive && attack0.Attacker != being0)
-                            attack0.DoAttack(being0);
-                    }
-                    else if (e2 is Attack attack1 && e1 is Being being1)
-                    {
-                        if (attack1.IsActive && attack1.Attacker != being1)
-                            attack1.DoAttack(being1);
-                    }
-                    else if (e1 is Item healPlant && e2 is Player player3)
-                    {
-                        healPlant.IsGrabbed(player3);
-                    }
-                    else if (e2 is Item healPlant1 && e1 is Player player4)
-                    {
-                        healPlant1.IsGrabbed(player4);
-                    }
-                    //else if (e1 is Poison poison0 && e2 is Player player5)
-                    //{
-                    //    //Méthode à faire pour remplacer CheckEntities() dans Poison
-                    //}
-                    //else if (e2 is Poison poison1 && e1 is Player player6)
-                    //{
-                    //    //Méthode à faire pour remplacer CheckEntities() dans Poison
-                    //}
                 }
             }
-        }
-
-        private void DoAttack(Player player, Monster monster)
-        {
-            player.TakeDamage(monster.AttackDamage, monster, monster.x, 300,500, 1, 0.5);
         }
     }
 }

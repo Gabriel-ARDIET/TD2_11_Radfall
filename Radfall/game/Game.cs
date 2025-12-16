@@ -28,7 +28,9 @@ namespace Radfall
             Left,
             Right,
             Jump,
-            BaseAttack
+            BaseAttack,
+            Dash,
+            NoClip
         }
 
         public Game(Canvas canva) { 
@@ -44,9 +46,9 @@ namespace Radfall
 
             player = new Player(1000, 2500, RessourceManager.LoadImage("Perso.png"),entityManager,100,800,1000,false);
             entityManager.Add(player);
+            player = new Player(1000, 2500, RessourceManager.LoadImage("Perso.png"),entityManager,100,500,1500,false);
 
-            monster = new Monster(300, 300, RessourceManager.LoadImage("chauve-souris.png"), entityManager, 100,200,0,true,player,10);
-            entityManager.Add(monster);
+            monster = new Grenouille(1100, 2500, RessourceManager.LoadImage("grenouille.jpg"), entityManager, 100,500,1000,false,player,10);
 
             map = new Map(canva, entityManager);
 
@@ -55,6 +57,8 @@ namespace Radfall
             InputManager.BindKey(Action.Right, Key.D);
             InputManager.BindKey(Action.Jump, Key.Space);
             InputManager.BindKey(Action.BaseAttack, Key.E);
+            InputManager.BindKey(Action.Dash, Key.LeftShift);
+            InputManager.BindKey(Action.NoClip, Key.F3);
 
             // Setup ui
             gameUI = new GameUI(player, canva);
@@ -77,6 +81,14 @@ namespace Radfall
             if (InputManager.IsActionActive(Action.BaseAttack))
             {
                 player.BaseAttack();
+            }
+            if(InputManager.IsActionActive(Action.Dash))
+            {
+                player.Dash();
+            }
+            if (InputManager.IsActionActive(Action.NoClip))
+            {
+                player.ActivateNoClip();
             }
         }
 

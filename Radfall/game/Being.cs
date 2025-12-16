@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace Radfall.game
 {
@@ -14,11 +15,13 @@ namespace Radfall.game
         public int MaxHealth { get; set; }
         public int Health { get; set; }
         public double Speed { get; set; }
+        public double BaseSpeed { get; set; }
         public double JumpForce { get; set; }
         public bool IsFlying { get; set; }
         public bool IsInvicible { get; set; }
         public bool IsStunned { get; set; }
         public Attack ?currentAttack { get; set; }
+        public bool IsFacingLeft { get; set; } = false;
 
         public Being(double x, double y, Image img, EntityManager entityManager, int maxHealth, double speed, double jumpForce,
             bool isFlying = false) : base(x, y, img, entityManager)
@@ -27,6 +30,7 @@ namespace Radfall.game
             Health = maxHealth;
             JumpForce = jumpForce;
             IsFlying = isFlying;
+            BaseSpeed = speed;
         }
 
         public override void Update(double dTime)
@@ -62,7 +66,6 @@ namespace Radfall.game
             {
                 Die();
             }
-            Debug.WriteLine(Health);
         }
 
         internal virtual void Die()
@@ -74,8 +77,8 @@ namespace Radfall.game
         private void TakeKnockback(double attackX, double knockbackX, double knockbackY)
         {
             double direction = Math.Sign(x - attackX);
-            VelocityX += knockbackX * direction;
-            VelocityY -= knockbackY;
+            VelocityX = knockbackX * direction;
+            VelocityY = -knockbackY;
             TimeManager.AddTimer(0.3, () =>
             {
                 if (Math.Abs(VelocityX) > 0)
@@ -88,7 +91,7 @@ namespace Radfall.game
         private void StartStunTime(double stunTime)
         {
             IsStunned = true;
-            // Flicker du sprite si possible
+            //Flicker
             TimeManager.AddTimer(stunTime, () => { IsStunned = false; });
         }
 

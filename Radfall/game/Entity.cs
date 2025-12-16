@@ -17,7 +17,7 @@ namespace Radfall
 {
     internal class Entity : Drawable
     {
-        public const double GRAVITY = 30000;
+        public const double GRAVITY = 50000;
 
         public EntityManager entityManager;
         public double VelocityX { get; set; }

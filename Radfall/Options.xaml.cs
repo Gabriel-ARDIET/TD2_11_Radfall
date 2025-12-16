@@ -40,6 +40,15 @@ namespace Radfall
                 case "txtSaut":
                     inputs.Add(Game.Action.Jump, key);
                     break;
+                case "txtAttaquer":
+                    inputs.Add(Game.Action.BaseAttack, key);
+                    break;
+                case "txtDash":
+                    inputs.Add(Game.Action.Dash, key);
+                    break;
+                case "txtNoClip":
+                    inputs.Add(Game.Action.NoClip, key);
+                    break;
             }
 
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -11,7 +12,7 @@ namespace Radfall
 {
     class Monster : Being
     {
-        private Entity Target { set; get; }
+        public Entity Target { set; get; }
         public int AttackDamage { get; set; }
         private double directionX, directionY;
         public Monster(double x, double y, Image img, EntityManager entityManager, int maxHealth, double speed, double jumpForce,
@@ -30,7 +31,6 @@ namespace Radfall
         public override void Update(double dTime)
         {
             base.Update(dTime);
-            Move();
         }
         public void Move()
         {
@@ -55,6 +55,10 @@ namespace Radfall
                 directionX = Math.Sign(Target.x - x);
                 x += Speed * directionX * TimeManager.DeltaTime;
             }
+        }
+        public void CollisionAttack(Being target)
+        {
+            target.TakeDamage(AttackDamage, this, x, 600, 1000, 1, 0.5);
         }
     }
 }
