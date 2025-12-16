@@ -24,27 +24,46 @@ namespace Radfall
 
         private const int ITEM_Z_INDEX = 0;
 
-        private Tile[,] tiles = new Tile[HEIGHT_SIZE, WIDTH_SIZE];
+        private Drawable[,] foreground = new Drawable[HEIGHT_SIZE, WIDTH_SIZE];
+        private Drawable[,] background = new Drawable[HEIGHT_SIZE, WIDTH_SIZE];
 
-        public Map(Canvas canva)
+        public Map(Canvas canva, EntityManager eMng)
         {
             // Pour chaque Tile
             for (int i = 0; i < HEIGHT_SIZE; i++)
             {
                 for (int j = 0; j < WIDTH_SIZE; j++)
                 {
-                    Image tile = RessourceManager.LoadImage("map/tiles/foreground/MapForeground_" + GetIndice(i, j) + ".png");
-                    tile.Width = IMG_SIZE;
-                    tile.Height = IMG_SIZE;
+                    Image foregroundTile = new Image
+                    {
+                        Source = RessourceManager.LoadStaticBitmap("map/tiles/foreground/MapForeground_" + GetIndice(i, j) + ".png"),
+                        Width = IMG_SIZE,
+                        Height = IMG_SIZE
+                    };
 
-                    // Initialisation de chaque tile
-                    tiles[i, j] = new Tile(i * IMG_SIZE,
-                                           j * IMG_SIZE,
-                                           tile);
+                    foreground[i, j] = new Drawable(i * IMG_SIZE,
+                                                    j * IMG_SIZE,
+                                                    foregroundTile);
 
-                    // Ajoute au canva en mettant le z-index
-                    canva.Children.Add(tiles[i, j].img);
-                    Canvas.SetZIndex(tiles[i, j].img, MAP_Z_INDEX);
+                    canva.Children.Add(foreground[i, j].img);
+                    Canvas.SetZIndex(foreground[i, j].img, MAP_Z_INDEX);
+
+                    Image backgroundTile = new Image
+                    {
+                        Source = RessourceManager.LoadStaticBitmap("map/tiles/background/MapBackground_" + GetIndice(i, j) + ".png"),
+                        Width = IMG_SIZE,
+                        Height = IMG_SIZE
+                    };
+
+                    background[i, j] = new Drawable(i * IMG_SIZE,
+                                                    j * IMG_SIZE,
+                                                    backgroundTile);
+
+                    canva.Children.Add(background[i, j].img);
+                    Canvas.SetZIndex(background[i, j].img, MAP_Z_INDEX-1);
+
+                    // Item
+                    InitItem(canva, eMng);
                 }
             }
         }
@@ -56,9 +75,8 @@ namespace Radfall
             return (int)WIDTH_SIZE * y + x + 1;
         }
 
-        public void Init(Canvas canva, EntityManager eMng)
+        public void InitItem(Canvas canva, EntityManager eMng)
         {
-            
 
             // Initialisations des items sur la map
             BitmapImage healPlantImg = RessourceManager.LoadBitmap("HealPlant.png");
@@ -106,7 +124,8 @@ namespace Radfall
             {
                 for (int j = 0; j < WIDTH_SIZE; j++)
                 {
-                    renderer.Draw(tiles[i, j]);
+                    renderer.Draw(background[i, j]);
+                    renderer.Draw(foreground[i, j]);
                 }
             }
         }
