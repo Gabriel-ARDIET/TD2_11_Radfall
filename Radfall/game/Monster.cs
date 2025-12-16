@@ -56,5 +56,9 @@ namespace Radfall
                 x += Speed * directionX * TimeManager.DeltaTime;
             }
         }
+        public void CollisionAttack(Being target)
+        {
+            target.TakeDamage(AttackDamage, this, x, 600, 1000, 1, 0.5);
+        }
     }
 }
