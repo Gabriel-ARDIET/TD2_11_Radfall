@@ -49,15 +49,9 @@ namespace Radfall
 
             RessourceManager.AssetsDirectory = "../../../assets/";
 
-            player = new Player(1000, 2500, RessourceManager.LoadImage("Perso.png"),entityManager,100,500,1500,false);
+            player = new Player(700, 2000, RessourceManager.LoadImage("Perso.png"),entityManager,100,500,1500,false);
 
-            monster = new Grenouille(1100, 2500, RessourceManager.LoadImage("grenouille.jpg"), entityManager, 100,500,1000,false,player,10);
-
-            bat = new Bat(1300, 2700, RessourceManager.LoadImage("chauve-souris.png"), entityManager, 50, 300, 0, true, player, 10);
-
-            spawner = new Spawner(1500, 2500, RessourceManager.LoadImage("test.png"), entityManager, monster, 5);
-
-            map = new Map(canva, entityManager);
+            map = new Map(canva, entityManager, player);
 
             // Setup les Input
             InputManager.BindKey(Action.Left, Key.Q);
