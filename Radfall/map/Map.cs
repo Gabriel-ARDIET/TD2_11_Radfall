@@ -104,10 +104,10 @@ namespace Radfall
                             Poison poison = new Poison(j * Map.COLLISION_TILE_SIZE, i * Map.COLLISION_TILE_SIZE, RessourceManager.LoadImage("poison.png"), eMng, 2);
                             break;
                         case MAP_VALUE_SLIME:
-                            Spawner spawnerSlime = new Spawner(j * Map.COLLISION_TILE_SIZE, i * Map.COLLISION_TILE_SIZE, RessourceManager.LoadImage("poison.png"), eMng, slime, 5);
+                            Spawner spawnerSlime = new Spawner(j * Map.COLLISION_TILE_SIZE, i * Map.COLLISION_TILE_SIZE, RessourceManager.LoadImage("poison.png"), eMng, slime, 5,4);
                             break;
                         case MAP_VALUE_BAT:
-                            Spawner spawnerBat = new Spawner(j * Map.COLLISION_TILE_SIZE, i * Map.COLLISION_TILE_SIZE, RessourceManager.LoadImage("poison.png"), eMng, bat, 5);
+                            Spawner spawnerBat = new Spawner(j * Map.COLLISION_TILE_SIZE, i * Map.COLLISION_TILE_SIZE, RessourceManager.LoadImage("poison.png"), eMng, bat, 5,4);
                             break;
                     }
                 }
