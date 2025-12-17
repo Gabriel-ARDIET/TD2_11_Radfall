@@ -19,64 +19,22 @@
         </Grid.RowDefinitions>
         <Label Name="labTitre" Content="Radfall" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" 
                FontFamily="{DynamicResource Aniron}" FontSize="200" Background="Transparent" FontWeight="Bold" Foreground="White" Grid.RowSpan="4"/>
-        <Button x:Name="butJouer"
-                Height="150" 
-                Width="500" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                FontSize="36" 
-                FontFamily="{DynamicResource AngelicSerif}" 
+        
+        <Button x:Name="butJouer" 
                 Grid.Row="1"
-                Background="Transparent"
-                BorderThickness="0">
-            <Grid>
-                <Image Source="/assets/ui/Bar.png" Stretch="Fill"/>
-                <TextBlock Text="Jouer"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontSize="36"
-                           FontFamily="Arial Black"/>
-            </Grid>
-        </Button>
+                Style="{StaticResource ButtonStyle}"
+                Content="Jouer"/>
+
         <Button x:Name="butOption" 
-                Width="500" 
-                Height="150" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                FontSize="36" 
-                FontFamily="Arial Black" 
-                Grid.Row="2" 
-                Click="butOption_Click"
-                Background="Transparent"
-                BorderThickness="0">
-            <Grid>
-                <Image Source="/assets/ui/Button.png" Stretch="Fill"/>
-                <TextBlock Text="Options"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontSize="36"
-                           FontFamily="Arial Black"/>
-            </Grid>
-        </Button>
+                Grid.Row="2"
+                Style="{StaticResource ButtonStyle}"
+                Content="Options"
+                Click="butOption_Click"/>
+
         <Button x:Name="butCredit" 
-                Width="500" 
-                Height="150" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                FontSize="36" 
-                FontFamily="Arial Black" 
                 Grid.Row="3"
-                Background="Transparent"
-                BorderThickness="0">
-            <Grid>
-                <Image Source="/assets/ui/Button.png" Stretch="Fill"/>
-                <TextBlock Text="Crédits"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="36"
-                   FontFamily="Arial Black"
-                   />
-            </Grid>
-        </Button>
+                Style="{StaticResource ButtonStyle}"
+                Content="Credits"/>
+        
     </Grid>
 </UserControl>

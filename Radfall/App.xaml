@@ -7,5 +7,38 @@
         <FontFamily x:Key="AngelicWar">/assets/fonts/#Angelic War</FontFamily>
         <FontFamily x:Key="AngelicSerif">/assets/fonts/#Angelic Serif</FontFamily>
         <FontFamily x:Key="Aniron">/assets/fonts/#Aniron</FontFamily>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="70"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Image Source="/Assets/ui/Button.png" Stretch="Uniform"/>
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      TextElement.FontSize="24"
+                                      TextElement.FontFamily="{DynamicResource AngelicSerif}"
+                                      TextElement.Foreground="Black"/>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
     </Application.Resources>
 </Application>
