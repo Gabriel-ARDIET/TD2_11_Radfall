@@ -17,6 +17,7 @@ namespace Radfall
     {
         private List<Entity> entities = new List<Entity>();
         private List<Entity> toRemove = new List<Entity>();
+        private List<Entity> toAdd = new List<Entity>();
 
         private Canvas canvas;
 
@@ -27,8 +28,7 @@ namespace Radfall
 
         public void Add(Entity entity)
         {
-            entities.Add(entity);
-            entity.InitializeRenderer(canvas);
+            toAdd.Add(entity);
         }
 
         public void Remove(Entity entity)
@@ -73,6 +73,12 @@ namespace Radfall
                 index++;
             }
             // On attend la fin du parcours du entities pour y supprimer les éléments
+            foreach (Entity add in toAdd)
+            {
+                entities.Add(add);
+                add.InitializeRenderer(canvas);
+            }
+            toAdd.Clear();
             foreach (Entity garbage in toRemove)
             {
                 if (canvas.Children.Contains(garbage.img))

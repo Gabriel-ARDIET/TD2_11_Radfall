@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace Radfall
 {
-    class Monster : Being
+    internal abstract class Monster : Being
     {
         public Entity Target { set; get; }
         public int AttackDamage { get; set; }

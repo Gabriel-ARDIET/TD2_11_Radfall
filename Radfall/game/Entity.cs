@@ -15,7 +15,7 @@ using System.Diagnostics;
 
 namespace Radfall
 {
-    internal class Entity : Drawable
+    internal abstract class Entity : Drawable
     {
         public const double GRAVITY = 50000;
 
@@ -51,11 +51,9 @@ namespace Radfall
         }
         public void InitializeRenderer(Canvas canvas)
         {
-            if (!canvas.Children.Contains(img))
-            {
                 canvas.Children.Add(img);
                 Canvas.SetZIndex(img, Renderer.LAYER_ENTITY);
-            }
+
         }
         internal void UpdateHitbox()
         {

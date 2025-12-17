@@ -46,6 +46,10 @@ namespace Radfall
 
             Animation.SetCurrent("Idle");
         }
+        public override Being Clone(double x, double y)
+        {
+            return new Player(x,y, RessourceManager.CloneImage(img), entityManager,MaxHealth,Speed,JumpForce,IsFlying);
+        }
 
         public void MoveLeft()
         {

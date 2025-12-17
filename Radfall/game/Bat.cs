@@ -38,5 +38,20 @@ namespace Radfall.game
                 y += Speed * directionY * TimeManager.DeltaTime;
             }
         }
+        public override Being Clone(double x, double y)
+        {
+            return new Bat(
+                x,
+                y,
+                RessourceManager.CloneImage(img),
+                entityManager,
+                MaxHealth,
+                Speed,
+                JumpForce,
+                IsFlying,
+                Target,
+                AttackDamage
+            );
+        }
     }
 }

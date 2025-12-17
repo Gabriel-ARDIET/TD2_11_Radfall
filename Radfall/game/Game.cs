@@ -24,6 +24,7 @@ namespace Radfall
         private Monster monster;
         private Monster bat;
         private Poison poison;
+        private Spawner spawner;
 
         public enum Action
         {
@@ -54,7 +55,7 @@ namespace Radfall
 
             bat = new Bat(1300, 2700, RessourceManager.LoadImage("chauve-souris.png"), entityManager, 50, 300, 0, true, player, 10);
 
-            poison = new Poison(1500, 2500, RessourceManager.LoadImage("test.png"), entityManager, 1);
+            spawner = new Spawner(1500, 2500, RessourceManager.LoadImage("test.png"), entityManager, monster, 5);
 
             map = new Map(canva, entityManager);
 

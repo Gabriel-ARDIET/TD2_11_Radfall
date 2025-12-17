@@ -48,5 +48,20 @@ namespace Radfall.game
             }
             VelocityY = -JumpForce;
         }
+        public override Being Clone(double x, double y)
+        {
+            return new Grenouille(
+                x,
+                y,
+                RessourceManager.CloneImage(img),
+                entityManager,
+                MaxHealth,
+                Speed,
+                JumpForce,
+                IsFlying,
+                Target,
+                AttackDamage
+            );
+        }
     }
 }

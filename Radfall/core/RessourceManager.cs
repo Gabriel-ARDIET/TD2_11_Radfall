@@ -72,5 +72,16 @@ namespace Radfall
 
             return bitmapImage;
         }
+        public static Image CloneImage(Image source)
+        {
+            return new Image
+            {
+                Source = source.Source,
+                Width = source.Width,
+                Height = source.Height,
+                Stretch = source.Stretch,
+                RenderTransformOrigin = source.RenderTransformOrigin
+            };
+        }
     }
 } 

@@ -10,7 +10,7 @@ using System.Windows.Documents;
 
 namespace Radfall.game
 {
-    internal class Being : Entity
+    internal abstract class Being : Entity
     {
         public int MaxHealth { get; set; }
         public int Health { get; set; }
@@ -109,5 +109,6 @@ namespace Radfall.game
                 Health = MaxHealth;
             }
         }
+        public abstract Being Clone(double x, double y);
     }
 }
