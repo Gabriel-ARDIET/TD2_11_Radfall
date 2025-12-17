@@ -18,6 +18,7 @@ namespace Radfall.game
             this.x = x;
             this.y = y;
             this.img = img;
+            this.img.Width = 150;
         }
 
         public override void IsGrabbed(Player player)
