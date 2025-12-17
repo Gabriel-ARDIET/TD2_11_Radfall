@@ -121,6 +121,7 @@ namespace Radfall
             if (timer >= PoisonPurifyingTime)
             {
                 Purify(1);
+                timer = 0;
             }
             base.Update(dTime);
             if (NoClip)

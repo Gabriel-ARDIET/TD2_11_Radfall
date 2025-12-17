@@ -25,12 +25,11 @@ namespace Radfall.game
         public override void Update(double dTime)
         {
             base.Update(dTime);
-            timer += dTime;
-            
         }
 
         internal void InflictPoison(Player player)
         {
+            timer += TimeManager.DeltaTime;
             if (timer >= POISON_INTERVAL)
             {
                 timer = 0;
