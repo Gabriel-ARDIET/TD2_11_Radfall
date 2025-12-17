@@ -19,7 +19,7 @@ namespace Radfall.game
             this.x = x;
             this.y = y;
             this.Amount = amount;
-            img.Opacity = 0.3;
+            img.Source = RessourceManager.LoadBitmap("poison.png");
         }
 
         public override void Update(double dTime)
