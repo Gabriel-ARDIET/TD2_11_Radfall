@@ -48,6 +48,7 @@ namespace Radfall.game
             }
             VelocityY = -JumpForce;
         }
+
         public override Being Clone(double x, double y)
         {
             return new Grenouille(
