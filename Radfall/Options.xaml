@@ -23,9 +23,9 @@
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
         <Label x:Name="labGauche"  Style="{StaticResource LabelStyle}" Content="Gauche :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,120,0,0"
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
-        <Label x:Name="labHaut" Content="Gauche :" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,180,0,0"
+        <Label x:Name="labHaut" Content="Haut :" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,180,0,0"
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
-        <Label x:Name="labBas" Content="Gauche :"  Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,240,0,0"
+        <Label x:Name="labBas" Content="Bas :"  Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,240,0,0"
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
 
         <TextBox Name="txtDroite" Style="{StaticResource TextBoxStyle}" Text="Entrez une touche" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1"
