@@ -30,7 +30,9 @@ namespace Radfall
             Jump,
             BaseAttack,
             Dash,
-            NoClip
+            NoClip,
+            Up,
+            Down
         }
 
         public Game(Canvas canva) { 
@@ -55,6 +57,8 @@ namespace Radfall
             // Setup les Input
             InputManager.BindKey(Action.Left, Key.Q);
             InputManager.BindKey(Action.Right, Key.D);
+            InputManager.BindKey(Action.Up, Key.Z);
+            InputManager.BindKey(Action.Down, Key.S);
             InputManager.BindKey(Action.Jump, Key.Space);
             InputManager.BindKey(Action.BaseAttack, Key.E);
             InputManager.BindKey(Action.Dash, Key.LeftShift);
@@ -73,6 +77,14 @@ namespace Radfall
             if (InputManager.IsActionActive(Action.Right))
             {
                 player.MoveRight();
+            }
+            if (InputManager.IsActionActive(Action.Up))
+            {
+                player.MoveUp();
+            }
+            if (InputManager.IsActionActive(Action.Down))
+            {
+                player.MoveDown();
             }
             if (InputManager.IsActionActive(Action.Jump))
             {

@@ -62,6 +62,25 @@ namespace Radfall
             {
                 x += Speed * TimeManager.DeltaTime;
                 IsFacingLeft = false;
+                Animation.SetCurrent("Walk");
+            }
+        }
+        public void MoveUp()
+        {
+            if (!IsStunned && IsFlying)
+            {
+                y -= Speed * TimeManager.DeltaTime;
+                IsFacingLeft = false;
+                Animation.SetCurrent("Walk");
+            }
+        }
+        public void MoveDown()
+        {
+            if (!IsStunned && IsFlying)
+            {
+                y += Speed * TimeManager.DeltaTime;
+                IsFacingLeft = false;
+                Animation.SetCurrent("Walk");
             }
         }
 
@@ -99,6 +118,7 @@ namespace Radfall
                 IsInvicible = true;
                 IsSolid = false;
             }
+            Animation.SetCurrent("Idle");
         }
 
         internal void TakePoison(int damage)

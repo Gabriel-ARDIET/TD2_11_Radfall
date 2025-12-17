@@ -78,5 +78,25 @@
                    />
             </Grid>
         </Button>
+        <Button x:Name="butQuitter" 
+        Width="500" 
+        Height="150" 
+        HorizontalAlignment="Center" 
+        VerticalAlignment="Center" 
+        FontSize="36" 
+        FontFamily="Arial Black" 
+        Grid.Row="4"
+        Background="Transparent"
+        BorderThickness="0">
+            <Grid>
+                <Image Source="/assets/ui/Button.png" Stretch="Fill"/>
+                <TextBlock Text="Quitter"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           FontSize="36"
+           FontFamily="Arial Black"
+           />
+            </Grid>
+        </Button>
     </Grid>
 </UserControl>
