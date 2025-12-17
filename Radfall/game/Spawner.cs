@@ -15,6 +15,11 @@ namespace Radfall.game
         double SpawningInterval { get; set; }
         double timer = 0;
         private List<Being> beings = new List<Being>();
+
+        public uint Capacity { get; set; } = 3;
+
+        private int counter = 0;
+
         public Spawner(double x, double y, Image img, EntityManager entityManager, Being being, double spawningInterval) : base (x, y, img, entityManager)
         {
             IsVisible = false;
@@ -33,7 +38,11 @@ namespace Radfall.game
 
         private void SpawnBeing()
         {
-            beings.Add(Being.Clone(x,y));
+            if (counter < Capacity)
+            {
+                beings.Add(Being.Clone(x, y));
+                counter++;
+            }
         }
     }
 }
