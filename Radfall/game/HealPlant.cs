@@ -19,6 +19,7 @@ namespace Radfall.game
             this.x = x;
             this.y = y;
             this.img = img;
+            this.img.Width = 200;
             Animation.Add(
                 animationName: "Default",
                 pathImg: "animation/HealPlant/JumpPlant",
