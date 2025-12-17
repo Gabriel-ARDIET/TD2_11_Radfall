@@ -22,6 +22,8 @@ namespace Radfall
         private GameUI gameUI;
         private Player player;
         private Monster monster;
+        private Monster bat;
+        private Poison poison;
 
         public enum Action
         {
@@ -46,11 +48,13 @@ namespace Radfall
 
             RessourceManager.AssetsDirectory = "../../../assets/";
 
-            player = new Player(1000, 2500, RessourceManager.LoadImage("Perso.png"),entityManager,100,800,1000,false);
-            entityManager.Add(player);
             player = new Player(1000, 2500, RessourceManager.LoadImage("Perso.png"),entityManager,100,500,1500,false);
 
             monster = new Grenouille(1100, 2500, RessourceManager.LoadImage("grenouille.jpg"), entityManager, 100,500,1000,false,player,10);
+
+            bat = new Bat(1300, 2700, RessourceManager.LoadImage("chauve-souris.png"), entityManager, 50, 300, 0, true, player, 10);
+
+            poison = new Poison(1500, 2500, RessourceManager.LoadImage("test.png"), entityManager, 1);
 
             map = new Map(canva, entityManager);
 
