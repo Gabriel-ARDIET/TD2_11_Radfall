@@ -32,22 +32,22 @@ namespace Radfall
             switch (((TextBox)sender).Name)
             {
                 case "txtGauche":
-                    inputs.Add(Game.Action.Left, key);
+                    inputs[Game.Action.Left] = key;
                     break;
                 case "txtDroite":
-                    inputs.Add(Game.Action.Right, key);
+                    inputs[Game.Action.Right] = key;
                     break;
                 case "txtSaut":
-                    inputs.Add(Game.Action.Jump, key);
+                    inputs[Game.Action.Jump] = key;
                     break;
                 case "txtAttaquer":
-                    inputs.Add(Game.Action.BaseAttack, key);
+                    inputs[Game.Action.BaseAttack] = key;
                     break;
                 case "txtDash":
-                    inputs.Add(Game.Action.Dash, key);
+                    inputs[Game.Action.Dash] = key;
                     break;
                 case "txtNoClip":
-                    inputs.Add(Game.Action.NoClip, key);
+                    inputs[Game.Action.NoClip] = key;
                     break;
             }
 
