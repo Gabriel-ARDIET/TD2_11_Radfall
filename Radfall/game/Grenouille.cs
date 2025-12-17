@@ -22,7 +22,6 @@ namespace Radfall.game
                    animationSpeed: 0.1
             );
             Animation.SetCurrent("Idle");
-            img.Width = 150;
         }
         public override void Update(double dTime)
         {
