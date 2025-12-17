@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,11 +37,6 @@ namespace Radfall
                     InputManager.ChangeKey(element.Key, element.Value);
                 }
             }
-        }
-
-        private void butCredit_SourceUpdated(object sender, DataTransferEventArgs e)
-        {
-
         }
     }
 }

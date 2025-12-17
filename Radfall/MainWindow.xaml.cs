@@ -37,12 +37,17 @@ namespace Radfall
         { 
             ZoneJeu.Content = ucMenu;
             ucMenu.butJouer.Click += ShowGame;
+            ucMenu.butQuitter.Click += Quitter;
         }
 
         private void ShowGame(object sender, RoutedEventArgs e)
         {  
             ZoneJeu.Content = ucJeu;
             ucJeu.GameLoop(radfall);
+        }
+        private void Quitter(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
