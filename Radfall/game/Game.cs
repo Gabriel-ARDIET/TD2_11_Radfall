@@ -55,7 +55,7 @@ namespace Radfall
 
             bat = new Bat(1300, 2700, RessourceManager.LoadImage("chauve-souris.png"), entityManager, 50, 300, 0, true, player, 10);
 
-            spawner = new Spawner(1500, 2500, RessourceManager.LoadImage("test.png"), entityManager, monster, 5);
+            spawner = new Spawner(1500, 2500, RessourceManager.LoadImage("test.png"), entityManager, monster, 1,5);
 
             map = new Map(canva, entityManager);
 

@@ -13,13 +13,16 @@ namespace Radfall.game
     {
         Being Being { get; set; }
         double SpawningInterval { get; set; }
+        int MaxBeings { get; set; }
         double timer = 0;
         private List<Being> beings = new List<Being>();
-        public Spawner(double x, double y, Image img, EntityManager entityManager, Being being, double spawningInterval) : base (x, y, img, entityManager)
+        private List<Being> toRemove = new List<Being>();
+        public Spawner(double x, double y, Image img, EntityManager entityManager, Being being, double spawningInterval, int maxBeings) : base (x, y, img, entityManager)
         {
-            IsVisible = false;
+            img.Opacity = 0;
             Being = being;
             SpawningInterval = spawningInterval;
+            MaxBeings = maxBeings;
         }
         public override void Update(double dTime)
         {
@@ -28,12 +31,27 @@ namespace Radfall.game
             {
                 timer = 0;
                 SpawnBeing();
+                RemoveDeadBeings();
             }
         }
 
         private void SpawnBeing()
         {
-            beings.Add(Being.Clone(x,y));
+            if (img.Visibility == System.Windows.Visibility.Visible && beings.Count < MaxBeings)
+                beings.Add(Being.Clone(x,y));
+        }
+        private void RemoveDeadBeings()
+        {
+            foreach (var being in beings)
+            {
+                if (being.Health <= 0)
+                    toRemove.Add(being);
+            }
+            foreach (var being in toRemove)
+            {
+                beings.Remove(being);
+            }
+            toRemove.Clear();
         }
     }
 }

@@ -18,8 +18,9 @@ namespace Radfall
         public int Accoutumance { get; set; }
         private Attack baseAttack;
         private Dash dash;
-
         private bool NoClip = false;
+        private double timer = 0;
+        private double PoisonPurifyingTime = 3;
         public Player(double x, double y, Image img, EntityManager entityManager, int maxHealth, double speed, double jumpForce,bool isFlying)
             : base(x, y, img, entityManager, maxHealth, speed, jumpForce, isFlying)
         {
@@ -112,9 +113,14 @@ namespace Radfall
         }
         public override void Update(double dTime)
         {
+            timer += dTime;
             if (currentAttack != null)
             {
                 currentAttack.Update(dTime);
+            }
+            if (timer >= PoisonPurifyingTime)
+            {
+                Purify(1);
             }
             base.Update(dTime);
             if (NoClip)
@@ -129,6 +135,8 @@ namespace Radfall
         internal void TakePoison(int damage)
         {
             Poison = Math.Min(Poison + damage, MaxPoison);
+            if (Poison >= MaxPoison)
+                Die();
         }
 
         public void Purify(int purifyAmount)
