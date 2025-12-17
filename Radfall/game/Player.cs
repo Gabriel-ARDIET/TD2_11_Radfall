@@ -28,19 +28,20 @@ namespace Radfall
             Speed = speed;
             JumpForce = jumpForce;
             IsFlying = isFlying;
+            MaxPoison = 100;
             baseAttack = new Attack(0, 0, RessourceManager.LoadImage("Attack.png"), entityManager, 10, this, 300, 500, 1, 0, 0.5, 0.5, 1);
             dash = new Dash(this, 0.2, 1.5, 750, 0);
             Animation.Add(
                     animationName: "Idle",
                     pathImg: "BlueWizard/2BlueWizardIdle/Chara - BlueIdle",
                     nbFrame: 20,
-                    animationSpeed: 0.2
+                    animationSpeed: 0.03
             );
             Animation.Add(
                     animationName: "Walk",
                     pathImg: "BlueWizard/2BlueWizardWalk/Chara_BlueWalk",
                     nbFrame: 20,
-                    animationSpeed: 0.2
+                    animationSpeed: 0.03
             );
 
             Animation.SetCurrent("Idle");
@@ -62,6 +63,25 @@ namespace Radfall
             {
                 x += Speed * TimeManager.DeltaTime;
                 IsFacingLeft = false;
+                Animation.SetCurrent("Walk");
+            }
+        }
+        public void MoveUp()
+        {
+            if (!IsStunned && IsFlying)
+            {
+                y -= Speed * TimeManager.DeltaTime;
+                IsFacingLeft = false;
+                Animation.SetCurrent("Walk");
+            }
+        }
+        public void MoveDown()
+        {
+            if (!IsStunned && IsFlying)
+            {
+                y += Speed * TimeManager.DeltaTime;
+                IsFacingLeft = false;
+                Animation.SetCurrent("Walk");
             }
         }
 
@@ -99,6 +119,7 @@ namespace Radfall
                 IsInvicible = true;
                 IsSolid = false;
             }
+            Animation.SetCurrent("Idle");
         }
 
         internal void TakePoison(int damage)

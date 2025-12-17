@@ -19,11 +19,14 @@ namespace Radfall.game
             this.x = x;
             this.y = y;
             this.Amount = amount;
+            img.Opacity = 0.3;
         }
 
         public override void Update(double dTime)
         {
+            base.Update(dTime);
             timer += dTime;
+            
         }
 
         internal void InflictPoison(Player player)

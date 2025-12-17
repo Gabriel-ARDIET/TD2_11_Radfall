@@ -8,6 +8,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Radfall
@@ -87,10 +88,10 @@ namespace Radfall
             {
                 if (entity.IsVisible)
                 {
-                    entity.img.Opacity = 100;
+                    entity.img.Visibility = Visibility.Visible;
                     renderer.Draw(entity);
                 }
-                else entity.img.Opacity = 0;
+                else entity.img.Visibility = Visibility.Hidden;
             }
         }
 

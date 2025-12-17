@@ -14,7 +14,7 @@ namespace Radfall
     {
         public Entity Target { set; get; }
         public int AttackDamage { get; set; }
-        private double directionX, directionY;
+        public double directionX, directionY;
         public Monster(double x, double y, Image img, EntityManager entityManager, int maxHealth, double speed, double jumpForce,
            bool isFlying, Entity target, int attackDamage) : base(x, y, img, entityManager, maxHealth,speed,jumpForce,isFlying)
         {
@@ -32,33 +32,9 @@ namespace Radfall
         {
             base.Update(dTime);
         }
-        public void Move()
-        {
-            if (IsFlying)
-            {
-                directionX = Target.x - x;
-                directionY = Target.y - y;
-
-                // Normalisation de la direction
-                double length = Math.Sqrt(directionX * directionX + directionY * directionY);
-                directionX /= length;
-                directionY /= length;
-
-                if (!IsStunned)
-                {
-                    x += Speed * directionX * TimeManager.DeltaTime;
-                    y += Speed * directionY * TimeManager.DeltaTime;
-                }
-            }
-            else
-            {
-                directionX = Math.Sign(Target.x - x);
-                x += Speed * directionX * TimeManager.DeltaTime;
-            }
-        }
         public void CollisionAttack(Being target)
         {
-            target.TakeDamage(AttackDamage, this, x, 600, 1000, 1, 0.5);
+            target.TakeDamage(AttackDamage, this, x, 600, 600, 1, 0.5);
         }
     }
 }

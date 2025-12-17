@@ -32,30 +32,47 @@ namespace Radfall
             switch (((TextBox)sender).Name)
             {
                 case "txtGauche":
-                    inputs[Game.Action.Left] = key;
+                    HandleKeyChange(Game.Action.Left, key);
                     break;
                 case "txtDroite":
-                    inputs[Game.Action.Right] = key;
+                    HandleKeyChange(Game.Action.Right, key);
+                    break;
+                case "txtHaut":
+                    HandleKeyChange(Game.Action.Up, key);
+                    break;
+                case "txtBas":
+                    HandleKeyChange(Game.Action.Down, key);
                     break;
                 case "txtSaut":
-                    inputs[Game.Action.Jump] = key;
+                    HandleKeyChange(Game.Action.Jump, key);
                     break;
                 case "txtAttaquer":
-                    inputs[Game.Action.BaseAttack] = key;
+                    HandleKeyChange(Game.Action.BaseAttack, key);
                     break;
                 case "txtDash":
-                    inputs[Game.Action.Dash] = key;
+                    HandleKeyChange(Game.Action.Dash, key);
                     break;
                 case "txtNoClip":
-                    inputs[Game.Action.NoClip] = key;
+                    HandleKeyChange(Game.Action.NoClip, key);
                     break;
             }
+        }
 
+        private void HandleKeyChange(Game.Action action,Key key)
+        {
+            if (inputs.ContainsKey(action))
+                inputs[action] = key;
+            else
+                inputs.Add(action, key);
         }
 
         private void butValider_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            bool valeursUniques = inputs.Values.Distinct().Count() == inputs.Count;
+            if (valeursUniques)
+                DialogResult = true;
+            else
+                MessageBox.Show("Veuillez entrer des touches différentes pour chaque actions.","Erreur",MessageBoxButton.OK,MessageBoxImage.Error);
         }
 
         private void butAnnuler_Click(object sender, RoutedEventArgs e)

@@ -31,10 +31,15 @@
                 Content="Options"
                 Click="butOption_Click"/>
 
-        <Button x:Name="butCredit" 
+        <Button x:Name="butCredits" 
                 Grid.Row="3"
                 Style="{StaticResource ButtonStyle}"
                 Content="Credits"/>
         
+        <Button x:Name="butQuitter" 
+                Grid.Row="4"
+                Style="{StaticResource ButtonStyle}"
+                Content="Quitter"
+                Click="butQuitter_Click"/>
     </Grid>
 </UserControl>

@@ -22,6 +22,8 @@ namespace Radfall
         private GameUI gameUI;
         private Player player;
         private Monster monster;
+        private Monster bat;
+        private Poison poison;
 
         public enum Action
         {
@@ -30,7 +32,9 @@ namespace Radfall
             Jump,
             BaseAttack,
             Dash,
-            NoClip
+            NoClip,
+            Up,
+            Down
         }
 
         public Game(Canvas canva) { 
@@ -44,17 +48,21 @@ namespace Radfall
 
             RessourceManager.AssetsDirectory = "../../../assets/";
 
-            player = new Player(1000, 2500, RessourceManager.LoadImage("Perso.png"),entityManager,100,800,1000,false);
-            entityManager.Add(player);
             player = new Player(1000, 2500, RessourceManager.LoadImage("Perso.png"),entityManager,100,500,1500,false);
 
             monster = new Grenouille(1100, 2500, RessourceManager.LoadImage("grenouille.jpg"), entityManager, 100,500,1000,false,player,10);
+
+            bat = new Bat(1300, 2700, RessourceManager.LoadImage("chauve-souris.png"), entityManager, 50, 300, 0, true, player, 10);
+
+            poison = new Poison(1500, 2500, RessourceManager.LoadImage("test.png"), entityManager, 1);
 
             map = new Map(canva, entityManager);
 
             // Setup les Input
             InputManager.BindKey(Action.Left, Key.Q);
             InputManager.BindKey(Action.Right, Key.D);
+            InputManager.BindKey(Action.Up, Key.Z);
+            InputManager.BindKey(Action.Down, Key.S);
             InputManager.BindKey(Action.Jump, Key.Space);
             InputManager.BindKey(Action.BaseAttack, Key.E);
             InputManager.BindKey(Action.Dash, Key.LeftShift);
@@ -73,6 +81,14 @@ namespace Radfall
             if (InputManager.IsActionActive(Action.Right))
             {
                 player.MoveRight();
+            }
+            if (InputManager.IsActionActive(Action.Up))
+            {
+                player.MoveUp();
+            }
+            if (InputManager.IsActionActive(Action.Down))
+            {
+                player.MoveDown();
             }
             if (InputManager.IsActionActive(Action.Jump))
             {
