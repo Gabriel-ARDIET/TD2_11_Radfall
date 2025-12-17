@@ -98,7 +98,10 @@ namespace Radfall.game
         private void StartInvincibility(double invicibilityTime)
         {
             IsInvicible = true;
-            TimeManager.AddTimer(invicibilityTime, () => { IsInvicible = false; });
+            img.Opacity = 0.7;
+            TimeManager.AddTimer(invicibilityTime, () => { IsInvicible = false;
+                img.Opacity = 1;
+            });
         }
 
         public void Heal(int healAmount)

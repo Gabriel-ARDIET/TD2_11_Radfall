@@ -102,6 +102,9 @@ namespace Radfall
                 player.ActivateNoClip();
             }
         }
+        public void OnPlayerDeath()
+        {
+        }
 
         private void Update()
         {
